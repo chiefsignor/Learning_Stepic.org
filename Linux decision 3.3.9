@@ -1,0 +1,41 @@
+#!/bin/bash
+while true
+do
+    echo "enter your name:"
+    read name
+    if [[ -z $name ]]
+    then
+        echo "bye"
+        break
+    fi
+    echo "enter your age:"
+    read age
+    if [[ $age -eq 0 ]]
+    then
+        echo "bye"
+        break
+    fi
+    case $age in
+        [0-9]|1[0-6]) group=child;;
+        1[7-9]|2[0-5]) group=youth;;
+        *) group=adult;;
+    esac
+    echo "$name, your group is $group"
+done    
+
+#another decision
+#!/bin/bash
+while [[ True ]]
+do
+    echo "enter your name:" ; read name
+    if [[ -z $name ]] ; then echo "bye" ; break ; fi
+
+    echo "enter your age:" ; read age
+    if [[ $age -eq 0 ]] ; then echo "bye" ; break ; fi
+    
+    if [[ $age -le 16 ]] ; then group="child" 
+    elif [[ $age -le 25 ]] ; then group="youth" 
+    elif [[ $age -gt 25 ]] ; then group="adult" ; fi
+
+    echo "${name}, your group is $group"
+done
