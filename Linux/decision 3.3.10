@@ -1,0 +1,87 @@
+#1
+
+while true; do
+        read exp
+        if [[ $exp = 'exit' ]]; then echo 'bye'; break; fi
+        if let r=$(( $exp )); then echo $r; else echo 'error'; break; fi
+done
+
+#2
+
+#!/bin/bash
+while [[ True ]] ; do
+    read a b c
+    if [[ $a == "exit" ]] ; then echo "bye" ; exit ; fi
+    case $b in
+    "+"|"-"|"*"|"/"|"%"|"**")let "r=$a$b$c"; echo $r ;;
+    *) echo "error" ; exit ; esac ; done
+    
+#3
+
+flag=1
+
+while [[ flag -eq 1 ]]
+do
+read a f b
+if [[ $a = "exit" ]]; then break
+fi
+case $f in
+    '*' | '+' | '/' | '-' | '%' | '**' )
+    let "res = $a $f $b"
+    echo $res 
+    ;;
+    *)
+    echo "error"
+    exit
+    ;;
+esac
+
+done
+
+echo "bye"
+
+#4
+
+while :; do
+        read a b c
+        if [[ $a = "exit" ]]; then
+                echo "bye"
+                exit 0
+        fi
+        
+        if [[ -n $a && -n $b && -n $c || $b -eq "+" || $b -eq "-" || $b -eq "*" || $b -eq "/" || $b -eq "**" || $b -eq "%" ]];  then 
+                let "r = $a $b $c"
+                echo $r
+        else
+                echo "error"
+                exit 0
+        fi
+done
+
+#5
+
+#!/bin/bash
+while [[ True ]]
+do
+  read n1 oper n2
+  if [[ $n1 == "exit" ]]
+  then
+    echo "bye"
+    break
+  elif [[ "$birinchi" =~ "^[0-9]+$" && "$n2" =~ "^[0-9]+$" ]]
+  then
+    echo "error"
+    break
+  else
+    case $oper in
+"+") let "result = n1 + n2";;
+"-") let "result = n1 - n2";;
+"/") let "result = n1 / n2";;
+"*") let "result = n1 * n2";;
+"%") let "result = n1 % n2";;
+"**") let "result = n1 ** n2";;
+*) echo "error" ; break ;;
+    esac
+    echo "$result"
+  fi
+done
