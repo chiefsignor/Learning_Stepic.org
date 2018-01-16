@@ -1,0 +1,70 @@
+#!/bin/bash
+
+while [ true ]
+do
+    read n1 n2
+if [ -z $n1 ]; then
+    echo "bye"
+    break
+else
+    gcd () {
+    reminder=1
+    if [ $n2 -eq 0 ]
+    then
+    echo "bye"
+    fi
+    while [ $reminder -ne 0 ]
+    do
+    reminder=$((n1%n2))
+    n1=$n2
+    n2=$reminder
+    done
+    }
+    gcd $1 $2
+    echo "GCD is $n1"
+fi
+done
+
+#2 Decision
+#!/bin/bash
+while true
+do
+    read a b
+    if [ -z $a ] ; then
+        echo bye
+        exit 0
+    fi
+    while [ $a -ne $b ]
+    do
+        if [ $a -gt $b ]
+            then
+            let "a=$a-$b"
+            else
+            let "b=$b-$a"
+        fi
+    done
+    echo "GCD is $a"
+done
+
+#3 decision
+#! /bin/bash 
+gcd () {
+	if [[ $2 != 0 ]] ; then
+		let "a=$1 % $2"
+		gcd $2 $a
+	else
+		echo $(( $1 ))
+	fi
+}
+
+while true 
+do
+read a b
+if [[ -n $a ]]; then
+	x=$( gcd $a $b )
+	echo "GCD is $x"
+else
+	echo "bye"
+	break
+fi
+done
