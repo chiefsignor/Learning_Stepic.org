@@ -1,0 +1,46 @@
+#1 decision
+d = []
+ans = 0
+for i in objects:
+    if id(i) not in d:
+        d.append(id(i))
+        ans += 1
+print(ans)
+
+#2 decision
+print(len(dict.fromkeys(id(obj) for obj in objects)))
+
+#3 decision
+ans = set()
+for obj in objects: # доступная переменная objects
+    ans.add(id(obj))
+print(len(ans))
+
+#4 decision
+ans = 0
+n = len(objects)
+a = []
+c = []
+while n != 0:
+    for i in range(len(objects)):
+        if objects[0] is objects[i]:
+          a.append(i)
+    
+    a.reverse()
+   
+    for i in a:
+        del objects[i]
+    ans += 1
+    
+    a = []
+    n = len(objects)
+
+
+print(ans)
+
+#5 decision
+set_objs = set()
+for o in objects:
+    set_objs.add(id(o))
+ans = len(set_objs)
+print(ans)
