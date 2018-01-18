@@ -1,0 +1,5 @@
+from requests import get
+l1, l2 = 'https://stepic.org/media/attachments/course67/3.6.3/', '699991.txt'
+while l2[-4:] == '.txt':
+    l2 = get(l1+l2).text
+print(l2)
