@@ -1,0 +1,32 @@
+#1 decision
+def closest_mod_5(x):
+    return x + (-x % 5)
+    
+#2 decision
+def closest_mod_5(x):
+    return list(filter(lambda x: x % 5 == 0, range(x, x+5)))[0]   
+    return [a for a in range(x, x+5) if a % 5 == 0][0]
+    
+#3 decision
+closest_mod_5 = lambda x: (x + 4) // 5 * 5
+
+#4 decision
+def closest_mod_5(x):
+    return x if x%5 == 0 else x + (5-x%5)
+    
+#5 decision
+import math
+closest_mod_5 = lambda x: math.ceil(x/5) * 5
+
+#6 decision
+def closest_mod_5(x):
+    x1 = x%5
+    if x1 == 0: return x
+    else: return x+5-x1
+    
+#7 decision
+def closest_mod_5(x):
+    y=x
+    while y%5 != 0 and y>=x:
+        y+=1
+    return y
