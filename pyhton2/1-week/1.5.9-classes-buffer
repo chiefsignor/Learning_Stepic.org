@@ -1,0 +1,118 @@
+#1 decision
+class Buffer:
+    def __init__(self):        # конструктор без аргументов
+        self.c = []
+        
+    def add(self, *a):        # добавить следующую часть последовательности
+        self.c.extend(a)
+        while len(self.c) >= 5:
+            print(sum(self.c[:5]))
+            del(self.c[:5])
+                            
+    def get_current_part(self):        # вернуть сохраненные в текущий момент элементы последовательности в порядке, в котором они были добавлены
+        return self.c
+
+#2 decision
+class Buffer:
+    def __init__(self):
+        self.part = []
+
+    def add(self, *a):
+        for i in a:
+            self.part.append(i)
+            if len(self.part) == 5:
+                print(sum(self.part))
+                self.part.clear()
+
+    def get_current_part(self):
+        return self.part
+        
+#3 decision
+class Buffer:
+    def __init__(self):
+        self.items = []
+
+    def add(self, *a):
+        self.items += list(a)
+        if len(self.items) >= 5:
+            for i in self.items[4::5]:
+                print(sum(self.items[:5]))
+                self.items = self.items[5:]
+
+    def get_current_part(self):
+        return self.items
+        
+#4 decision
+class Buffer:
+    def __init__(self):
+        self.queq = list()
+
+    def add(self, *a):
+        for x in a:
+            self.queq.append(x)
+            while len(self.queq) >= 5:
+                print(sum([self.queq.pop(0) for x in range(5)]))
+
+    def get_current_part(self):
+        return self.queq
+
+#5 decision
+class Buffer:
+    def __init__(self):
+        self.lst = []
+        
+    def add(self, *a):
+        for _ in a:
+            self.lst.append(_)
+            if len(self.lst) == 5:
+                sum = 0
+                for i in range(5):
+                    sum += self.lst.pop(0)
+                print(sum)
+
+    def get_current_part(self):
+        return self.lst
+        
+#6 decision
+class Buffer:
+    def __init__(self):
+        self.total = []
+        # конструктор без аргументов
+    
+    def add(self, *a):
+        self.total += a
+        buf = []
+        if len(self.total) >= 5:
+            while len(self.total) >=5:
+                for item in self.total[:5]:
+                    buf.append(self.total.pop(0))
+                print(sum(buf[:5]))
+                buf.clear()
+                
+    def get_current_part(self):
+        return self.total
+
+#7 decision
+class Buffer:
+    maxElem = 5
+
+    def __init__(self):
+        self.buf = []
+
+    def get_current_part(self):
+        return self.buf
+
+    def add(self, *a):
+        placeCounter = self.maxElem - len(self.buf)
+        if  len(a) > placeCounter:
+            res = sum(self.buf)
+            for i in range(placeCounter):
+                res += a[i]
+            print(res)
+            self.buf.clear()
+            self.add(*a[placeCounter:])
+        else:
+            self.buf.extend(a)
+            if len(self.buf) == self.maxElem:
+                print(sum(self.buf))
+                self.buf.clear()
