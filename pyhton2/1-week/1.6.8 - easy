@@ -1,0 +1,72 @@
+#1 decision
+class ExtendedStack(list):
+    def sum(self):
+        self.append(self.pop() + self.pop())
+        # операция сложения
+    def sub(self):
+        self.append(self.pop() - self.pop())
+        # операция вычитания
+    def mul(self):
+        self.append(self.pop() * self.pop())
+        # операция умножения
+    def div(self):
+        self.append(self.pop() // self.pop())
+        # операция целочисленного деления
+
+#2 decision
+class ExtendedStack(list):
+    def sum(s): s += [s[-1] + s[-2]]; del s[-3:-1]
+    def sub(s): s += [s[-1] - s[-2]]; del s[-3:-1]
+    def mul(s): s += [s[-1] * s[-2]]; del s[-3:-1]
+    def div(s): s += [s[-1]// s[-2]]; del s[-3:-1]
+    
+#3 decision
+class ExtendedStack(list):
+    def sum(self):
+        self.append(sum(self[-2:]))
+        del self[-3:-1]
+
+    def sub(self):
+        # операция вычитания
+        self.append(self[-1]-self[-2])
+        del self[-3:-1]
+
+    def mul(self):
+        # операция умножения
+        self.append(self[-2]*self[-1])
+        del self[-3:-1]
+
+
+    def div(self):
+        self.append(self[-1]//self[-2])
+        del self[-3:-1]
+        
+        
+#4 decision
+class ExtendedStack(list):
+    def op(s, x): 
+        s+=[eval("%d%s%d"%(s[-1],x,s[-2]))];
+        del s[-3:-1]
+    def sum(s): s.op('+')
+    def sub(s): s.op('-')
+    def mul(s): s.op('*')
+    def div(s): s.op('//')
+    
+    
+#5 decision
+class ExtendedStack(list):
+    def sum(self):
+        self[-2] += self[-1]
+        self.pop()
+
+    def sub(self):
+        self[-1] -= self[-2]
+        self.pop(-2)
+
+    def mul(self):
+        self[-2] *= self[-1]
+        self.pop()
+
+    def div(self):
+        self[-1] //= self[-2]
+        self.pop(-2)
