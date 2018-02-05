@@ -1,0 +1,280 @@
+#1 Decision
+def isP(pr, ch):
+    return ch == pr or any(map(lambda pl: isP(pr, pl), p[ch]))
+p = {}
+for j in range(2):
+    for c in [input().split() for i in range(int(input()))]:
+        if j: print(['No', 'Yes'][isP(*c)])
+        else: p[c[0]] = c[2:]
+
+
+#2 Decision
+n = int(input())
+
+parents = {}
+for _ in range(n):
+    a = input().split()
+    parents[a[0]] = [] if len(a) == 1 else a[2:]
+
+def is_parent(child, parent):
+    return child == parent or any(map(lambda p: is_parent(p, parent), parents[child]))
+
+q = int(input())
+for _ in range(q):
+    a, b = input().split()
+    print("Yes" if is_parent(b, a) else "No")
+    
+    
+#3 Decision
+def test(parent, child):
+    if parent == child or parent in base[child]:
+        return 'Yes'
+    for i in base[child]:
+        if test(parent, i) == 'Yes':
+            return 'Yes'
+    return 'No'
+
+base = {}
+for com in [input().split(' ') for i in range(int(input()))]:
+    base[com[0]] = com[2:len(com)]
+for com in [input().split(' ') for i in range(int(input()))]:
+    print (test(com[0], com[1]))
+    
+    
+#4 Decision
+def foo(a, b):
+    tmp = a == b
+    for i in d[b]:
+        tmp |= foo(a, i)
+    return tmp
+
+d = {}
+
+for i in range(int(input())):
+    s = input().split()
+    d[s[0]] = ([] if len(s) == 1 else s[2:])
+
+for i in range(int(input())):
+    a, b = map(str, input().split())
+    print("Yes" if foo(a, b) else "No")
+    
+    
+#5 Decision
+class_parents = dict()
+
+def issubclass_(derived, parent):
+    return parent == derived or any(issubclass_(class_parent, parent) for class_parent in class_parents[derived])
+
+for class_input in [input() for _ in range(int(input()))]:
+    words = class_input.replace(':', ' ').split()
+    class_parents[words[0]] = words[1:]
+
+queries = [input() for _ in range(int(input()))]
+for parent, derived in (q.split() for q in queries):
+    print('Yes' if issubclass_(derived, parent) else 'No')
+    
+    
+#6 Decision
+n = int(input())
+dicti ={}
+for i in range(n):
+    Name1, *Names = input().split(':')
+    if Names == []:
+        k = Names
+    else: k = list(Names[0].split())
+    dicti[Name1.strip()] = k
+    for a in k:
+        if a not in dicti.keys():
+            dicti[a] = []
+for key, value in dicti.items():
+    for j in value:
+        if j in dicti.keys():
+            dicti[key] += dicti[j]
+        
+for i in range(int(input())):
+    A, B = input().split()
+    if A == B:
+        print('Yes')
+    else:
+        if A in dicti[B]:
+            print('Yes')
+        else: print('No')
+        
+        
+#7 Decision
+info = {}
+for _ in range(int(input())):
+    data = input().split()
+    #print(data)
+    parents = []
+    if len(data)>2:
+        parents = data[2:]
+        #print(parents)
+    info[data[0]] = parents
+
+#print(info)
+
+def is_parent(c_prev, c_next):
+    if c_next == c_prev:
+        return True
+    if c_prev in info[c_next]:
+        return True
+    for m in info[c_next]:
+        if is_parent(c_prev, m):
+            return True
+    return False
+
+for _ in range(int(input())):
+    c1, c2 = input().split()
+    #print(c1, c2)
+    print('Yes' if is_parent(c1, c2) else 'No')
+
+
+#8 Decision
+d = dict()
+for i in range(int(input())):
+    a = input().split()
+    d[a[0]] = a[2:]
+
+for k, v in d.items():
+    for k2, v2 in d.items():
+        if k in v2:
+            v2 += v
+
+for i in range(int(input())):
+    a = input().split()
+    b = False
+    for k, v in d.items():
+        if a[1] == k and (a[0] in v or a[0] == k):
+            b = True
+    if b:
+        print('Yes')
+    else:
+        print('No')
+        
+        
+#9 Decision
+class Graph:
+    def __init__(self):
+        self.g = {} 
+
+    def add_node(self, node_name, parents):
+        if node_name in self.g.keys():
+            self.g[node_name].extend(parents)
+        else:
+            self.g[node_name] = parents
+        for p in parents:
+            if p not in self.g.keys():
+                self.add_node(p, [])
+
+    def is_parent(self, parent, node_name, ans = 'No'):        
+        if parent == node_name or parent in self.g[node_name]: 
+            return "Yes"
+        else:
+            for n in self.g[node_name]:
+                if parent in self.g[n]:
+                    return "Yes"
+                else:
+                    ans = self.is_parent(parent, n)
+                    if ans == 'Yes': return ans
+        return ans
+
+    def read_data(self, data):
+        node = [d.strip() for d in data.split(':')]
+        parents = [p.strip() for p in node[1].split()] if len(node) > 1 else []
+        self.add_node(node[0], parents)
+
+    def read_question(self, data):        
+        return self.is_parent(*[q.strip() for q in data.split()])
+
+g = Graph()
+for i in range(int(input())): g.read_data(input())
+for i in range(int(input())): print(g.read_question(input()))
+
+
+#10 Decision
+def rec(a, b):
+    an = 'No'
+    if a in d[b]:
+        return 'Yes'
+    for i in d[b]:
+        if i not in (':', b):
+            an = rec (a, i)
+            if an == 'Yes': return an
+    return an
+
+d = {}
+for k in range(int(input())):
+    line=input().split()
+    d[line[0]]=line
+for k in range(int(input())):
+    line=input().split()
+    print (rec(line[0],line[1]))
+    
+    
+#11 Decision
+def isparent(x, y):
+
+    if x == y or (x in parent[y]):
+        return True
+    for z in parent[y]:
+        if isparent(x,z):
+            return True
+    return False
+
+n=int(input())
+parent={}
+for _ in range(n):
+    str = input()
+    if ':' in str:
+        _class = str.split(' : ')[0]
+        parent[_class] = str.split(' : ')[1].split(' ')
+    else:
+        parent[str] = ''
+n = int(input())
+for _ in range(n):
+    x,y = input().split(' ')
+    if isparent(x, y):
+        print('Yes')
+    else:
+        print('No')
+        
+        
+#12 Decision
+from collections import defaultdict
+class MROGraph:
+    graph = defaultdict(list)
+
+    def add_arc(self, arc_str):
+        child, *parents = arc_str.split(':')
+        child = child.strip()
+        parents = parents[0].split() if parents else parents
+        for parent in parents:
+            self.graph[parent].append(child)
+
+    def find_all_paths(self, start, end, path=None):
+        path = path if path else []
+        path.append(start)
+        if start == end:
+            return [path]
+        if not start in self.graph:
+            return []
+        paths = []
+        for node in self.graph[start]:
+            if node not in path:
+                newpaths = self.find_all_paths(node, end, path)
+                for newpath in newpaths:
+                    paths.append(newpath)
+        return paths
+    
+    def is_child(self, parent, child):
+        return any(self.find_all_paths(parent, child))
+
+mro_graph = MROGraph()
+for _ in range(int(input())):
+    mro_graph.add_arc(input())
+
+for _ in range(int(input())):
+    parent, child = input().split()
+    answer = 'Yes' if mro_graph.is_child(parent, child) else 'No'
+    print(answer)
