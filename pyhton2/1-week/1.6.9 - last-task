@@ -1,0 +1,40 @@
+#1 Decision
+class LoggableList(list, Loggable):
+    def append(self, T):
+        super(LoggableList, self).append(T)
+        super(LoggableList, self).log(T)
+        
+#2 Decision
+class LoggableList(list, Loggable):
+    def append(s, e): s += [e]; s.log(e)
+    
+#3 Decision
+class LoggableList(list,Loggable):
+    def append(self, element):
+        LoggableList.log(self,element)
+        super(LoggableList, self).append(element)
+        
+#4 Decision
+class LoggableList(list, Loggable):
+    def append(self, x):
+        self.log(x)
+        return super().append(x)
+        
+#5 Decision
+class LoggableList(list, Loggable):
+    def append(self, x):
+        super().append(x)
+        self.log(x)
+        
+#6 Decision
+class LoggableList(list, Loggable):
+    def append(self, x):
+        list.append(self, x)
+        self.log(x)
+
+#7 Decision
+class LoggableList (Loggable, list):
+    def append(self, p):
+        self.p = []
+        list.append(self, p)
+        Loggable.log(self, p)
