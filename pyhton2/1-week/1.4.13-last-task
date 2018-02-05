@@ -1,0 +1,112 @@
+#1 decision
+def create(namespace, parent):
+    namespaces.update({namespace: [parent]})
+
+def add(namespace, var):
+    namespaces[namespace] += [var]
+
+def get(namespace, var):
+    while not namespace is None and var not in namespaces[namespace]:
+        namespace = namespaces[namespace][0]
+    print(namespace)
+    
+namespaces = {'global': [None]}
+commands = {'create': create, 'add': add, 'get': get}
+n = int(input())
+for i in range(n):
+    enter = input().split()
+    commands[enter[0]](enter[1], enter[2])
+
+#2 decision
+n = int(input())
+
+parent = {"global": None}
+vs = {"global": set()}
+
+for _ in range(n):
+    t, fst, snd = input().split()
+    if t == "create":
+        parent[fst] = snd
+        vs[fst] = set()
+    elif t == "add":
+        vs[fst].add(snd)
+    else:  # t == get
+        while fst is not None:
+            if snd in vs[fst]:
+                break
+            fst = parent[fst]
+        print(fst)
+
+#3 decision
+info = dict({'global':[None]})
+
+def create(namespace, parent):
+    info.update({namespace:[parent]})
+
+def add(namespace, var):
+    info[namespace].append(var)
+
+def get(namespace, var):
+    while namespace != None and var not in info[namespace][1:]:
+        namespace = info[namespace][0]
+    print(namespace)
+
+operations = {'create': create, 'add': add, 'get': get}
+for i in range(int(input())):
+    inp = input().split()
+    operations[inp[0]](inp[1], inp[2])
+       
+#4 decision
+prnt = 'parent_ns'
+vs = 'vars'
+namespaces = {'global': {prnt: '', vs: []}}
+
+def create(ns, parent):
+    if ns not in namespaces:
+        namespaces[ns] = {prnt: parent, vs: []}
+
+def add(ns, var):
+    if ns in namespaces:
+        namespaces[ns][vs].append(var)
+
+def get(ns, var):
+    if ns == 'global':
+        print('None' if var not in namespaces[ns][vs] else ns)
+    elif var in namespaces[ns][vs]:
+        print(ns)
+    else:
+        get(namespaces[ns][prnt], var)
+
+funcs = {'create': create, 'add': add, 'get': get}
+n = int(input())
+for _ in range(n):
+    cmd, p1, p2 = input().split()
+    funcs[cmd](p1, p2)
+
+#5 decision
+d = {"global": [None, []]}
+
+def get(dir):
+    if dir in d and var not in d[dir][1]:
+        return get(d[dir][0])
+    return dir
+
+for f, dir, var in [input().split() for vars in range(int(input()))]:
+    if f == "create":
+        d[dir] = [var, []]
+    elif f == "add":
+        d[dir][1].append(var)
+    elif f == "get":
+        print(get(dir))
+
+#6 decision
+nam = {'global': {'par': None, 'vrs': set()}}
+
+for x in [input().split() for cmd in range(int(input()))]:
+    if x[0] == 'create':
+        nam[x[1]] = {'par': x[2], 'vrs': set()}
+    elif x[0] == 'add':
+        nam[x[1]]['vrs'].add(x[2])
+    elif x[0] == 'get':
+        get = lambda n, v: v in nam[n]['vrs'] and n or n == 'global' and 'None' or get(nam[n]['par'], v)
+        print(get(x[1], x[2]))
