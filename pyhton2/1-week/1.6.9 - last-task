@@ -38,3 +38,4 @@ class LoggableList (Loggable, list):
         self.p = []
         list.append(self, p)
         Loggable.log(self, p)
+        
