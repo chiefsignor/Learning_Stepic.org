@@ -1,0 +1,600 @@
+Шаг 1:
+В то далёкое время, когда Паша ходил в школу, ему очень не нравилась формула Герона для вычисления площади треугольника,
+так как казалась слишком сложной. В один прекрасный момент Павел решил избавить всех школьников от страданий и написать 
+и распространить по школам программу, вычисляющую площадь треугольника по трём сторонам. 
+Одна проблема: так как эта формула не нравилась Павлу, он её не запомнил. Помогите ему завершить доброе дело и напишите
+программу, вычисляющую площадь треугольника по переданным длинам трёх его сторон по формуле Герона:
+S=p(p−a)(p−b)(p−c)−−−−−−−−−−−−−−−−−√
+где p=a+b+c2 – полупериметр треугольника. На вход программе подаются целые числа, выводом программы должно являться 
+вещественное число, соответствующее площади треугольника.
+
+Решение №1:
+a = int(input())
+b = int(input())
+c = int(input())
+p = ((a + b + c)/2)
+S=(((p*(p-a)*(p-b)*(p-c)))**0.5)
+print (float(S))
+
+Решение №2:
+a,b,c=(int(input()) for i in range(3))
+print(((a+b+c)/2*((a+b+c)/2-a)*((a+b+c)/2-b)*((a+b+c)/2-c))**0.5)
+
+Решение №3:
+import math
+a = float(input())
+b = float(input())
+c = float(input())
+p = (a + b + c) / 2;
+print(math.sqrt(p * ((p - a) * (p - b) * (p - c))))
+
+Решение №4:
+exec("print((((a+b+c)*(-a+b+c)*(a-b+c)*(a+b-c))**0.5)/4)", {C:int(input()) for C in ('a','b','c')})
+
+Решение №5:
+a, b, c = [int(input()), int(input()), int(input())]
+p = (a+b+c)/2
+S = (p*(p-a)*(p-b)*(p-c))**0.5
+print(S)
+
+
+
+
+
+Шаг 2:
+Напишите программу, принимающую на вход целое число, которая выводит True, если переданное значение попадает в интервал 
+(−15,12]∪(14,17)∪[19,+∞) и False в противном случае (регистр символов имеет значение).
+Обратите внимание на разные скобки, используемые для обозначения интервалов. В задании используются полуоткрытые и открытые 
+интервалы. Подробнее про это вы можете прочитать, например, на википедии (полуинтервал, промежуток).
+
+Решение №1:
+a = int(input())
+if -15 < a <= 12 or 14 < a < 17 or 19 <= a:
+    print(True)
+else:
+    print(False)
+
+Решение №2:
+x=int(input())
+if -15<x<=12 or 14<x<17 or 19<=x:
+  print ('True')
+else:
+  print('False')
+
+Решение №3:
+exec("print({0} > -15 and not ({0} in [13, 14, 17, 18]))".format(int(input())))
+
+Решение №4:
+a = int(input())
+print(-15<a<=12 or 14<a<17 or 19<=a)
+
+Решение №5:
+print(-15< int(input()) not in[13,14,17,18])
+
+
+
+
+
+Шаг 3:
+Напишите простой калькулятор, который считывает с пользовательского ввода три строки: 
+первое число, второе число и операцию, после чего применяет операцию к введённым числам 
+("первое число" "операция" "второе число") и выводит результат на экран.
+Поддерживаемые операции: +, -, /, *, mod, pow, div, где 
+mod — это взятие остатка от деления, 
+pow — возведение в степень, 
+div — целочисленное деление.
+Если выполняется деление и второе число равно 0, необходимо выводить строку "Деление на 0!".
+Обратите внимание, что на вход программе приходят вещественные числа.
+
+Решение №1:
+a = float(input())
+b = float(input())
+c = input()
+if c=='+':
+    print(a+b)
+elif c=='-':
+    print(a-b)
+elif c=='*':
+    print(a*b)
+elif c=='pow':
+    print(pow(a,b))
+    
+elif ((b==0) and ((c=='/') or (c=='mod') or (c=='div'))):
+    print ('Деление на 0!')
+elif c=='/':
+    print(a/b)
+elif c=='mod':
+    print(a%b)
+elif c=='div':
+    print(a//b)
+
+Решение №2:
+import operator
+a,b,c = (input() for _ in range(3))
+o = {'+' : operator.add, '-' : operator.sub,'*' : operator.mul,'/' : operator.truediv,'mod' : operator.mod,'pow' : operator.pow,'div' : operator.floordiv}
+try:
+    exec("print(o[c](float(a),float(b)))")
+except:
+    print('Деление на 0!')
+
+Решение №3:
+Num1 = float(input())
+Num2 = float(input())
+Op = input()
+if Op == '+':
+    Result = Num1 + Num2
+elif Op == '-':
+    Result = Num1 - Num2
+elif Op == '/':
+    if Num2 != 0:
+        Result = Num1 / Num2
+    else:
+        Result = 'Деление на 0!'
+elif Op == '*':
+    Result = Num1 * Num2
+elif Op == 'mod':
+    if Num2 != 0:
+        Result = Num1 % Num2
+    else:
+        Result = 'Деление на 0!'
+elif Op == 'pow':
+    Result = Num1 ** Num2
+elif Op == 'div':
+    if Num2 != 0:
+        Result = Num1 // Num2
+    else:
+        Result = 'Деление на 0!'
+else:
+    Result = 'Неизвестная операция'
+print(Result)
+
+Решение №4:
+a = float(input())
+b = float(input())
+c = input()
+if ((c == "/"  or c == "mod" or c == "div") and b == 0):
+    print ("Деление на 0!")
+elif (c == "/"):
+    print (a / b)
+elif (c == "mod"):
+    print (a % b)
+elif (c == "div"):
+    print (a // b)
+elif (c == "pow"):
+    print (a ** b)
+elif (c == "+"):
+    print (a + b)
+elif (c == "-"):
+    print (a - b)
+elif (c == "*"):
+    print (a * b)
+
+Решение №5:
+import operator
+
+a = float(input())
+b = float(input())
+op = input()
+
+ops = {'+' : operator.add, 
+      '-' : operator.sub,
+      '*' : operator.mul,
+      '/' : operator.truediv,
+      'mod' : operator.mod,
+      'pow' : operator.pow,
+      'div' : operator.floordiv
+     }
+
+try:
+    print(ops[op](a,b))
+except:
+    print("Деление на 0!")
+
+Решение №6:
+a, b, c = [float(input()), float(input()), input()]
+
+if c == str('/') and b == 0:
+  print('Деление на 0!')
+elif c == str('/'):
+  print(a/b)
+elif c == str('mod') and b == 0:
+  print('Деление на 0!')
+elif c == str('div') and b == 0:
+  print('Деление на 0!')
+elif c == str('+'):
+  print(a+b)
+elif c == str('-'):
+  print(a-b)
+elif c == str('*'):
+  print(a*b)
+elif c == str('mod'):
+  print(a%b)
+elif c == str('pow'):
+  print(a**b)
+elif c == str('div'):
+  print(a//b)
+
+
+
+
+
+Шаг 4:
+Жители страны Малевии часто экспериментируют с планировкой комнат. Комнаты бывают треугольные, прямоугольные и круглые.
+Чтобы быстро вычислять жилплощадь, требуется написать программу, на вход которой подаётся тип фигуры комнаты и 
+соответствующие параметры, которая бы выводила площадь получившейся комнаты.
+Для числа π в стране Малевии используют значение 3.14.
+Формат ввода, который используют Малевийцы:
+треугольник
+a
+b
+c
+где a, b и c — длины сторон треугольника
+прямоугольник
+a
+b
+где a и b — длины сторон прямоугольника
+круг
+r
+где r — радиус окружности
+
+Решение №1:
+room=str(input())
+if room == "прямоугольник":
+    a=int(input())
+    b=int(input())
+    print(a*b)
+elif room == "треугольник":
+    a=int(input())
+    b=int(input())
+    c=int(input())
+    p=((a+b+c)/2)
+    print((p*(p-a)*(p-b)*(p-c))**0.5)
+elif room == "круг":
+    r=int(input())
+    print(3.14*(r**2))
+
+Решение №2:
+import math
+shapeType = input()
+if (shapeType == "треугольник"):
+  a = int(input())
+  b = int(input())
+  c = int(input())
+  p = (a + b + c) / 2;
+  print(float(math.sqrt(p * ((p - a) * (p - b) * (p - c)))))
+elif(shapeType == "прямоугольник"):
+  a = int(input())
+  b = int(input())
+  print(float(a * b))
+else:
+  r = int(input()) ** 2
+  p = 3.14;
+  print(float(p * r))
+
+Решение №3:
+Shape = input()
+if Shape == 'треугольник':
+    a = int(input())
+    b = int(input())
+    c = int(input())
+    p = (a + b + c) / 2
+    S = (p * (p - a) * (p - b) * (p - c)) ** 0.5
+elif Shape == 'прямоугольник':
+    a = int(input())
+    b = int(input())
+    S = a * b
+elif Shape == 'круг':
+    r = int(input())
+    S = 3.14 * r ** 2
+else:
+    S = 'Неизвестная фигура'
+print(S)
+
+Решение №4:
+room= input()
+if room == 'треугольник':
+    a,b,c = int(input ()), int(input ()), int(input ())
+    p=(a+b+c)/2
+    print((p*(p-a)*(p-b)*(p-c))**0.5)
+if room == 'прямоугольник':
+    a,b = int(input ()), int(input ())
+    print(a*b)
+if room == 'круг':
+    r = int(input ())
+    print(3.14*(r**2))
+
+Решение №5:
+x=(input())
+if x=="треугольник":
+    a=int(input())
+    b=int(input())
+    c=int(input())
+    p=(a+b+c)/2
+    print ((p*(p-a)*(p-b)*(p-c))**0.5)
+elif x=="прямоугольник":
+    a=int(input())
+    b=int(input())
+    print (a*b)
+elif x=="круг":
+    a=int(input())
+
+Решение №5:
+x = input()
+if (x == 'круг'):
+    print(3.14*int(input())**2)
+elif (x == 'прямоугольник'):
+    print(int(input())*int(input()))
+else:
+    a,b,c = int(input()),int(input()),int(input())
+    p = (a + b + c)/2
+    print((p * (p - a) * (p - b) * (p - c))**0.5)
+
+
+
+
+Шаг 5:
+Напишите программу, которая получает на вход три целых числа, по одному числу в строке, и выводит на консоль 
+в три строки сначала максимальное, потом минимальное, после чего оставшееся число.
+На ввод могут подаваться и повторяющиеся числа.
+
+Решение №1:
+a = int(input())
+b = int(input())
+c = int(input())
+print(list(reversed(sorted([a,b,c])))[0])
+print(list(reversed(sorted([a,b,c])))[2])
+print(list(reversed(sorted([a,b,c])))[1])
+
+Решение №2:
+a=int(input())
+b=int(input())
+c=int(input())
+if (a>=b) and (b>=c):
+  print(a,'\n',c,'\n',b)
+elif (a>=b) and (c>=b) and (a>=c):
+  print(a,'\n',b,'\n',c)
+elif( a>=b) and (c>=b) and (a<=c):
+  print(c,'\n',b,'\n',a)
+elif (b>=a) and (a>=c):
+  print(b,'\n',c,'\n',a)
+elif (b>=a) and (c>=a) and (b>=c):
+  print(b,'\n',a,'\n',c)
+elif (b>=a) and (c>=a) and (c>=b):
+  print(c,'\n',a,'\n',b)
+
+Решение №3:
+a = int (input())
+b = int (input())
+c = int (input())
+maximum = int ()
+minimum = int ()
+other = int ()
+if a > b and a > c:
+    maximum = a
+elif b > c:
+    maximum = b
+else:
+    maximum = c
+if a < b and a < c:
+    minimum = a
+elif b < c:
+    minimum = b
+else:
+    minimum = c
+if a == maximum and b == minimum or a == minimum and b == maximum:
+    other = c 
+elif b == maximum and c == minimum or b == minimum and c == maximum:
+    other = a
+else:
+    other = b
+print (maximum)
+print (minimum)
+print (other)
+
+Решение №4:
+a, b ,c = int(input()), int(input()), int(input())
+print(max(a, b, c))
+print(min(a, b ,c))
+print((a + b + c) - ((min(a, b, c)) + (max(a, b, c))))
+
+Решение №5:
+a,b,c = [int(input()) for i in range(3)]
+
+if a < b:
+    a, b = b, a
+if a < c:
+    a, c = c, a
+if c < b:
+    b, c = c, b
+print(a)
+print(b)
+print(c)
+
+
+
+
+Шаг 6:
+В институте биоинформатики по офису передвигается робот. Недавно студенты из группы программистов написали для 
+него программу, по которой робот, когда заходит в комнату, считает количество программистов в ней и произносит 
+его вслух:"n программистов".
+Для того, чтобы это звучало правильно, для каждого n нужно использовать верное окончание слова.
+Напишите программу, считывающую с пользовательского ввода целое число n (неотрицательное), выводящее это число в консоль 
+вместе с правильным образом изменённым словом "программист", для того, чтобы робот мог нормально общаться с людьми, например:
+1 программист, 2 программиста, 5 программистов.
+В комнате может быть очень много программистов. Проверьте, что ваша программа правильно обработает все случаи,
+как минимум до 1000 человек.
+Дополнительный комментарий к условию:
+Обратите внимание, что задача не так проста, как кажется на первый взгляд. Если ваше решение не проходит какой-то тест,
+это значит, что вы не рассмотрели какой-то из случаев входных данных (число программистов 0≤n≤1000). Обязательно 
+проверяйте свои решения на дополнительных значениях, а не только на тех, что приведены в условии задания. 
+Так как задание повышенной сложности, вручную код решений проверяться не будет. Если вы столкнулись с ошибкой 
+в первых четырёх тестах, проверьте, что вы используете только русские символы для ответа. В остальных случаях 
+ищите ошибку в логике работы программы.
+
+Решение №1:
+n = int(input())
+if 11 <= n <= 14 or (n > 100) and (11 <= n%100 <= 14):
+    print (str(n) + ' программистов')
+elif 0 < n < 1000 and (n % 10) < 2 and (n % 10) != 0:
+    print (str(n) + ' программист')
+elif 0 < n < 1000 and (n % 10) < 5 and (n % 10) != 0:
+    print (str(n) + ' программиста')
+elif (n % 10) == 0:
+    print (str(n) + ' программистов')
+else:
+    print (str(n) + ' программистов')
+
+Решение №2:
+qty_moq=int(input())
+
+j = qty_moq % 100
+if (j >=11 and j<=19): text = ' программистов';
+else:
+    i = qty_moq % 10
+    if(i == 1): text = ' программист'
+    elif(i == 2): text = ' программиста'
+    elif(i == 3): text = ' программиста'
+    elif(i == 4): text = ' программиста'
+    elif(i == 5): text = ' программистов'
+    else: text = ' программистов'
+
+Решение №3:
+Num = int(input())
+String = str(Num) + ' программист'
+if Num > 100:
+    Num = Num % 100
+if Num > 20:
+    Num = Num % 10
+if 2 <= Num <= 4:
+    print(String + 'а')
+elif (Num == 0) or (5 <= Num <= 20):
+    print(String + 'ов')
+else:
+    print(String)
+
+Решение №4:
+a = int(input())
+if a % 10 == 1 and a % 100 != 11:
+    print (a, 'программист')
+elif (a % 10 == 2 or a % 10 == 3 or a % 10 == 4) and a % 100 != 12 and a % 100 != 13 and a % 100 != 14:
+    print (a, 'программиста')
+else:
+    print (a, 'программистов')
+
+Решение №5:
+n = int(input())
+if 0 > n or n > 1000:
+    print("Введите число от 0 до 1000")
+elif n == 1:
+    print(str(n), "программист")
+elif n%10 == 1 and n%100 != 11:
+    print(str(n), "программист")
+elif n%100 != 12 and n%10 == 2 or n%100 != 13 and n%10 == 3 or n%100 != 14 and n%10 == 4:  
+    print(str(n), "программиста")
+else:
+  print(str(n), "программистов")
+
+Решение №6:
+exec("print({0},'программист'+('ов' if {0}%10==0 or 4<{0}%10<10 or 10<{0}%100<15 else 'а' if 1<{0}%10<5 else ''))".format(int(input())))
+
+Решение №7:
+num = int(input())
+str = 'программист'
+if (num % 10 == 2 or num % 10 == 3 or num % 10 == 4) and (15 < num % 100 or num % 100 < 11):
+	str += 'а'
+elif num % 10 == 1 and num % 100 != 11:
+	pass
+else:
+	str += 'ов'
+print(num, str)
+
+Решение №8:
+n = int(input())
+if   (5<=n%100<=20) : pr='программистов'
+elif (2<=n%10<=4)   : pr='программиста'
+elif n%10==1        : pr='программист'
+else                : pr='программистов'
+print(n,pr)
+
+Решение №9:
+count =input()
+if len(count) >= 2:
+    if count[-1] in {'2','3','4'} and not(count[-2] + count[-1] in{'12','13','14'}): print(count+" программиста")
+    elif count[-1] == '1' and count[-2]+count[-1] != '11': print(count+" программист")
+    else:print(count+" программист"+"ов")
+elif count[-1] in {'2','3','4'}: print(count+" программиста")
+elif count[-1] == '1': print(count+" программист")
+else: print(count+" программистов")
+
+Решение №10:
+x = input()
+if ((x[-1:] == "1") and (x[-2:] !="11")):
+    print (str(x)+" программист")
+elif ((1<int(x[-1:])<5) and not(11<int(x[-2:])<15) ):
+    print(str(x)+" программиста")
+else: print(str(x)+" программистов")
+
+
+
+Шаг 7:
+Паша очень любит кататься на общественном транспорте, а получая билет, сразу проверяет, счастливый ли ему попался.
+Билет считается счастливым, если сумма первых трех цифр совпадает с суммой последних трех цифр номера билета.
+Однако Паша очень плохо считает в уме, поэтому попросил вас написать программу, которая проверит равенство сумм 
+и выведет "Счастливый", если суммы совпадают, и "Обычный", если суммы различны.
+На вход программе подаётся строка из шести цифр.
+Выводить нужно только слово "Счастливый" или "Обычный", с большой буквы.
+
+Решение №1:
+n = str(input())
+if len(n) == 6:
+    x = int(n[0]) + int(n[1]) + int(n[2])
+    y = int(n[3]) + int(n[4]) + int(n[5])
+    if x == y:
+        print('Счастливый')
+    else:
+        print('Обычный')
+
+Решение №2:
+Num = int(input())
+Num100000 = Num // 100000
+Num10000 = Num % 100000 // 10000
+Num1000 = Num % 10000 // 1000
+Num100 = Num % 1000 // 100
+Num10 = Num % 100 // 10
+Num1 = Num % 10
+LeftSide = Num100000 + Num10000 + Num1000
+RightSide = Num100 + Num10 + Num1
+if LeftSide == RightSide:
+    print('Счастливый')
+else:
+    print('Обычный')
+
+Решение №3:
+h=int(input())
+if (h%1000)//100+(h%1000)%10+((h%1000)//10)%10==(h//1000)//100+(h//1000)%10+((h//1000)//10)%10: print('Счастливый')
+else: print('Обычный')
+
+Решение №4:
+a = int(input())
+b = a%1000
+c = b%10
+d = ((b-c)%100)/10
+e = (b-(d*10 + c))/100
+f = c+d+e
+g = (a - b)/1000
+h = g%1000
+i = h%10
+k = ((h-i)%100)/10
+l = (h-(k*10 + i))/100
+m = i+k+l
+if f == m:
+    print( "Счастливый")
+if f != m:
+    print("Обычный") 
+
+Решение №5:
+exec("print('Счастливый' if(({0}//100)%10+({0}//10)%10+{0}%10) == ({0}//100000+({0}//10000)%10+({0}//1000)%10) else 'Обычный')".format(int(input())))
+
+Решение №6:
+s = input()
+print('Счастливый' if int(s[0])+int(s[1])+int(s[2]) == int(s[3])+int(s[4])+int(s[5]) else 'Обычный')
