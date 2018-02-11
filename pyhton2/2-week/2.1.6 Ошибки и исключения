@@ -1,0 +1,29 @@
+#1 Decision:
+try: foo()
+except (ZeroDivisionError, AssertionError, ArithmeticError ) as e:
+    if isinstance(e, ZeroDivisionError): print('ZeroDivisionError')
+    elif isinstance(e, ArithmeticError): print('ArithmeticError')
+    elif isinstance(e, AssertionError): print('AssertionError')
+    
+#2 Decision:
+try:
+    foo()
+except ZeroDivisionError:
+    print("ZeroDivisionError")    
+except ArithmeticError:
+    print("ArithmeticError")
+except AssertionError:
+    print("AssertionError")
+    
+#3 Decision:
+try: foo()
+except Exception as e:
+    name = type(e).__name__ 
+    print(name if name.startswith(('As', 'Z')) else 'ArithmeticError')
+
+#4 Decision:
+try:
+    foo();
+except (AssertionError, ZeroDivisionError, ArithmeticError) as e:
+    s = {'ZeroDivisionError':'ZeroDivisionError','AssertionError':'AssertionError','ArithmeticError':'ArithmeticError','OverflowError':'ArithmeticError','FloatingPointError':'ArithmeticError'};
+    print(s[e.__class__.__name__]);
