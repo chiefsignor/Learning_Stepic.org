@@ -36,7 +36,7 @@ class PositiveList(list):
     def append(self, x):
         if x <= 0: raise NonPositiveError
         self += [x]
-
+ 
 Решение №4:
 class NonPositiveError(BaseException):
     pass
