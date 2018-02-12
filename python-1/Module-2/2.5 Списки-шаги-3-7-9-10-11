@@ -1,0 +1,249 @@
+Шаг-3:
+Сколько элементов будет содержать список students после следующих операций?
+
+students = ['Ivan', 'Masha', 'Sasha']
+students += ['Olga']
+students += 'Olga'
+
+Введите в поле ответа одно число.
+Подумайте, почему так происходит.
+
+Ответ: 8
+
+Шаг-7:
+Имеется программа, код которой указан ниже. 
+Укажите, какие значения будут содержать списки в помеченных участках:
+
+a = [1, 2, 3]
+b = a
+# значения списка b?
+
+a[1] = 10
+# значения списка b?
+
+b[0] = 20
+# значения списка a?
+
+a = [5, 6]
+# значения списка b?
+Запишите значения списков в одну строку, разделяя списки точкой с запятой, а элементы внутри списка — пробелом, например:
+1 1 1; 2 2 2; 3 3 3; 4 4 4
+
+Ответ: 1 2 3; 1 10 3; 20 10 3; 20 10 3
+
+
+Шаг-9:
+Напишите программу, на вход которой подается одна строка с целыми числами. Программа должна вывести сумму этих чисел.
+Используйте метод split строки. 
+
+Решение№1:
+a = [int(i) for i in input().split()]
+s = 0
+for i in a:
+    s += i; 
+print(s)
+
+Решение№2:
+a=[int(i) for i in input().split()]
+print(sum(a))
+
+Решение№3:
+a=[int(i) for i in input().split()]
+b = 0
+for i in range(len(a)):
+    b+=a[i]
+print(b)
+
+Решение№4:
+a = [int(i) for i in input().split()]
+q=0
+for i in a:
+    q+=i
+print(q)
+
+
+Шаг-10:
+Напишите программу, на вход которой подаётся список чисел одной строкой. Программа должна для каждого элемента этого 
+списка вывести сумму двух его соседей. Для элементов списка, являющихся крайними, одним из соседей считается элемент, 
+находящий на противоположном конце этого списка. Например, если на вход подаётся список "1 3 5 6 10", то на выход 
+ожидается список "13 6 9 15 7" (без кавычек).
+Если на вход пришло только одно число, надо вывести его же.
+Вывод должен содержать одну строку с числами нового списка, разделёнными пробелом.
+
+
+Решение№1:
+lst = [int(s) for s in input().split()]
+if len(lst) == 1:
+    print (lst[0])
+    exit()
+for i in range(len(lst) - 1):
+     print(lst[i-1]+lst[i+1],end=' ') 
+print(lst[i]+lst[0])
+
+Решение№2:
+numb = [int(i)for i in input().split()]
+if len(numb)==1:
+    print(numb[0])
+else:
+    for i in range(0,len(numb)):
+        if i<len(numb)-1:
+            print(numb[i-1]+numb[i+1], end=' ')
+        else:
+            print(numb[len(numb)-2]+numb[0])
+            
+Решение№3:
+num = [int(i) for i in input().split()]
+
+if len(num) == 1:
+    print (num[0])
+else:
+
+    for k in range (0, len(num)):
+        if k + 1 >= len(num):
+            res = num[k - 1] + num[0]
+        else:
+            res = num[k - 1] + num[k + 1]
+        print (res, end=' ')
+
+Решение№4:
+a,c = [int(i) for i in input().split()],0
+for i in range(len(a)):
+    if len(a) == 1:
+        c = a[0]
+    elif i == len(a)-1:
+        c = a[i-1] + a[0]
+    elif len(a) != 1:
+        c = a[i-1] + a[i+1]
+    print(c)
+    
+Решение№5:
+a=[int(i) for i in input().split()]
+b=[]
+for i in range(len(a)):
+	if len(a)==1:
+		b=a
+		break
+	if i==len(a)-1:
+		b.insert(i,a[0]+a[i-1])
+		break
+	b.insert(i,a[i+1]+a[i-1])
+for i in range(len(b)):
+    print(b[i], end=' ')
+    
+Решение№6:
+a=[int(i)for i in input().split()]
+L=len(a)
+s=0
+n=0
+if L==1:
+    print(a[0])
+else:
+    while s<(L-1):
+        for i in range(0,L):
+            if i!=L-1:
+                n=a[i+1]+a[i-1]
+                print(n,end=' ')
+                s+=1
+            else:
+                n=a[0]+a[i-1]
+                print(n,end=' ')
+                s+=1
+                
+Решение№7:
+
+s = [int(i) for i in input().split()]
+if len(s) == 1: print(*s)
+else: print(*[s[i-1]+s[i-len(s)+1] for i in range(0, len(s))])
+
+Шаг-11:
+Напишите программу, которая принимает на вход список чисел в одной строке и выводит на экран в одну строку 
+значения, которые повторяются в нём более одного раза.
+Для решения задачи может пригодиться метод sort списка.
+
+Выводимые числа не должны повторяться, порядок их вывода может быть произвольным.
+
+Решение№1:
+d = [int(x) for x in input().split()]
+d.sort()
+s = [x for x in set(d) if d.count(x) > 1]
+print(*s)
+  
+Решение№2:
+a = input().split()
+a.sort()
+m = []
+for i, item in enumerate(a):
+    if len(a)==1:
+        print()
+        break
+    if a.count(item)>1:
+        if item not in m:
+            m.append(item)
+for s in m:
+    print(s)
+    
+Решение№3:
+numb = [int(i) for i in input().split()]
+for i in range(len(numb)):
+    if numb.index(numb[i])== i and numb.count(numb[i])>1:
+            print(numb[i],end=' ')
+    else:
+        continue
+        
+Решение№4:
+arr = [int(i) for i in input().split()]
+for item in arr:
+    if arr.count(item) > 1:
+        print(item, end=' ')
+        while arr.count(item) > 1:
+            arr.reverse()
+            arr.remove(item)
+            arr.reverse()
+            
+Решение№5:
+key, i = 0, 0 
+a = [int(i) for i in input().split()]
+a.sort()
+
+for i in range(len(a)):
+  if i!=len(a)-1:
+    if a[i]==a[i+1]:
+      key=1
+      continue
+    elif key == 1: 
+      print(a[i], end = " ")
+      key=0
+  elif key == 1:
+    print(a[i], end = " ")
+    
+Решение№6:
+s = [int(i) for i in input().split()]
+new = []
+for i in s:
+    if s.count(i) > 1 and i not in new:
+      new.append(i)
+for j in new:
+  print(j,end=' ')  
+  
+Решение№7:
+a = [int(i) for i in input().split()]
+a.sort()
+s=0
+n=a[0]
+for i in a:
+  if n==i:
+    s+=1
+    if s==2:
+      print(n)
+  else:
+    n=i
+    s=1
+        
+Решение№8:
+ls=sorted([int(i) for i in input().split()])
+[print(i,end=' ') for i in set(ls) if ls.count(i)>1]
+
+Решение№9:
+a=input().split()
+[a.remove(i) for i in set(a)]
+print(*set(a))
