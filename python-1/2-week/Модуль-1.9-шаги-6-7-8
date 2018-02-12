@@ -25,3 +25,4 @@ b = False
 a and b or not a and not b
 
 Решение №1: False
+ 
