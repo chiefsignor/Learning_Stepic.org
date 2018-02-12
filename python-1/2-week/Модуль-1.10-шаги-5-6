@@ -34,7 +34,7 @@ a, b, c = map(int, open(0))
 print(("Недосып", "Это нормально", "Пересып")[(c > b) - (c < a) + 1])
 
 Решение №4:
-A = int(input())
+A = int(input()) 
 B = int(input())
 if A > B:
     print('B не должно быть больше, чем A \nВведите B заново: ')
