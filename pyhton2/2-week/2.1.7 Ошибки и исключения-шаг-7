@@ -1,0 +1,322 @@
+2.1.7 Ошибки и исключения - шаг - 7
+
+
+Вам дано описание наследования классов исключений в следующем формате. 
+<имя исключения 1> : <имя исключения 2> <имя исключения 3> ... <имя исключения k>
+Это означает, что исключение 1 наследуется от исключения 2, исключения 3, и т. д.
+
+Или эквивалентно записи:
+class Error1(Error2, Error3 ... ErrorK):
+    pass
+
+Антон написал код, который выглядит следующим образом.
+
+try:
+   foo()
+except <имя 1>:
+   print("<имя 1>")
+except <имя 2>:
+   print("<имя 2>")
+...
+Костя посмотрел на этот код и указал Антону на то, что некоторые исключения можно не ловить, так как ранее в 
+коде будет пойман их предок. Но Антон не помнит какие исключения наследуются от каких. Помогите ему выйти из 
+неловкого положения и напишите программу, которая будет определять обработку каких исключений можно удалить из кода.
+
+Важное примечание:
+В отличие от предыдущей задачи, типы исключений не созданы.
+Создавать классы исключений также не требуется
+Мы просим вас промоделировать этот процесс, и понять какие из исключений можно и не ловить, потому что мы уже 
+ранее где-то поймали их предка.
+
+Формат входных данных
+В первой строке входных данных содержится целое число n - число классов исключений.
+
+В следующих n строках содержится описание наследования классов. В i-й строке указано от каких классов наследуется i-й класс. 
+Обратите внимание, что класс может ни от кого не наследоваться. Гарантируется, что класс не наследуется сам от себя
+(прямо или косвенно), что класс не наследуется явно от одного класса более одного раза.
+В следующей строке содержится число m - количество обрабатываемых исключений.
+Следующие m строк содержат имена исключений в том порядке, в каком они были написаны у Антона в коде.
+Гарантируется, что никакое исключение не обрабатывается дважды.
+
+Формат выходных данных
+Выведите в отдельной строке имя каждого исключения, обработку которого можно удалить из кода, не изменив при этом
+поведение программы. Имена следует выводить в том же порядке, в котором они идут во входных данных.
+
+Пример теста 1
+Рассмотрим код
+
+try:
+   foo()
+except ZeroDivision :
+   print("ZeroDivision")
+except OSError:
+   print("OSError")
+except ArithmeticError:
+   print("ArithmeticError")
+except FileNotFoundError:
+   print("FileNotFoundError")
+   
+Решение №1:
+parents = {}
+for _ in range(int(input())):
+    a = input().split()
+    parents[a[0]] = [] if len(a) == 1 else a[2:]
+
+def is_parent(child, parent):
+    if child == parent: return True
+    for p in parents[child]:
+        if is_parent(p, parent ): return True
+    return False
+
+exceptions = []
+for _ in range(int(input())):
+    a = input().strip()
+    for i in exceptions:
+        if is_parent(a,i):
+            print(a)
+            break
+    exceptions.append(a)
+
+Решение №2:
+def foo(x):
+    if len(dic[x]) > 0:
+        for j in dic[x]:
+            if j in exs:
+                exs.add(E)
+                return E
+            elif foo(j) == None:
+                exs.add(E)
+            elif foo(j) == E:
+                return E
+    else:
+        exs.add(E)
+        return
+    
+dic = {}
+for i in range(int(input())):
+    x = input().split()
+    if len(x) > 1:
+        dic[x[0]] = x[2:]
+    else: dic[x[0]] = []
+
+d = dic.copy()
+for i in d.values():
+    for j in i:
+        if j not in dic:
+            dic[j] = []
+            
+exs = set()
+for i in range(int(input())):
+    E = input()
+    if foo(E) == E:
+        print(E)
+
+Решение №3:
+from collections import defaultdict
+class MROGraph:
+    graph = defaultdict(list)
+
+    def add_arc(self, arc_str):
+        child, *parents = arc_str.split(':')
+        child = child.strip()
+        parents = parents[0].split() if parents else parents
+        for parent in parents:
+            self.graph[parent].append(child)
+
+    def find_all_paths(self, start, end, path=None):
+        path = path if path else []
+        path.append(start)
+        if start == end:
+            return [path]
+        if not start in self.graph:
+            return []
+        paths = []
+        for node in self.graph[start]:
+            if node in path:
+                continue
+            newpaths = self.find_all_paths(node, end, path)
+            for newpath in newpaths:
+                paths.append(newpath)
+        return paths
+    
+    def is_child(self, parent, child):
+        return any(self.find_all_paths(parent, child))
+
+mro_graph = MROGraph()
+for _ in range(int(input())):
+    mro_graph.add_arc(input())
+
+children = []
+for _ in range(int(input())):
+    child = input()
+    if any(mro_graph.is_child(parent, child) for parent in children):
+        print(child)
+    children.append(child)
+
+Решение №4:
+def search(lst, exception):
+    if len(d[exception]) == 0:
+            return False
+    for i in d[exception]:
+        if i in lst:
+            return True
+        else:
+            if search(lst, i) is True:
+                return True
+            
+d = {}
+l = []
+answ = []
+
+n = int(input())
+for x in range(n):
+    i = input().split()
+    d.update({i[0]:[]})
+    if len(i) > 1:
+        for x in range(1,len(i)):
+            if i[x] != ':':
+                d[i[0]].append(i[x])
+
+n = int(input())
+for x in range(n):
+    y = input()
+    for i in d[y]:
+        if search(l, y) is True:
+            if y not in answ:
+                print(y)
+                answ.append(y)
+    l.append(y)
+
+Решение №5:
+spaces = {}
+n = int(input())
+for _ in range(n):
+    com = input()
+    a = com.split()
+    spaces[a[0]] = '' if len(a) == 1 else a[2:]
+stack = []
+alarm = []
+def add(parent):
+    if not parent in stack:
+        stack.append(parent)
+
+    for items in spaces:
+        for item in spaces[items]:
+            if item == parent:
+                stack.append(items)
+                add(items)
+
+n = int(input())
+for _ in range(n):
+    com = input()
+    if not com in stack:
+        stack.append(com)
+        add(com)
+    else:
+        if not com in alarm:
+            print(com)
+            alarm.append(com)
+
+Решение №6:
+errors = {}
+def is_parent(par, son):
+    return set(errors[son]) & set(par) or any([is_parent(par, i) for i in errors[son]])
+for _ in range(int(input())):
+    line = input().split()
+    errors[line[0]] = [] if len(line) == 0 else line[2:]
+pre = []
+for _ in range(int(input())):
+    line = input()
+    print(line) if is_parent(pre, line) else pre.append(line)
+
+
+Решение №7:
+errors={}
+lerror=[]
+result=[]
+
+for _ in range(int(input())):
+    a=input().split()
+    errors[a[0]] = [] if len(a)==1 else a[2:]
+
+def is_subclass(child,parent):
+    return child == parent or any(map(lambda p: is_subclass(p, parent), errors[child]))
+
+for _ in range(int(input())): lerror.extend(input().split())
+
+for i in range(len(lerror)):
+    for k in range(0,i):
+        if is_subclass(lerror[i],lerror[k]) and lerror[i] not in result:
+            result.append(lerror[i])
+
+for i in result: print(i)
+
+Решение №8:
+bd, spis = {}, []
+for i in range(int(input())):
+    vvod = list(input().split())
+    bd[vvod[0]] = vvod[2:]
+for i in range(int(input())):
+    spis.append(input())
+
+def chek(elem, ran):
+    for i in range(ran):
+        if spis[i] in bd[elem]:
+            return 1
+    for j in bd[elem]:
+        return chek(j, ran)
+for i in spis:
+    if chek(i, spis.index(i)) == 1:
+        print(i)
+
+
+Решение №9:
+def findParent(pretendent, child):
+    if pretendent in exep[child]: return True
+    else:
+        for ch in exep[child]:
+            if len(exep[ch]) != 0:
+                if findParent(pretendent, ch):
+                    return True
+        return False
+    
+exep = dict()
+answer = []
+test = []
+for i in range(int(input())):
+    params = input().split()
+    if len(params) > 1: exep[params[0]] = params[2:]
+    else: exep[params[0]] = []
+
+for i in range(int(input())):
+    test+=[input()]
+
+for i in range(1,len(test)):
+    for j in range(0,i):
+        if test[j] not in answer:
+            if findParent(test[j], test[i]):
+                answer += [test[i]]
+if len(answer) > 0:
+    print(answer[0])
+    for i in range(1,len(answer)):
+        if answer[i] != answer[i-1]:
+            print(answer[i])
+
+Решение №10:
+exceptions = [input().split() for i in range(int(input()))]
+queries = [input() for i in range(int(input()))]
+dict = {item[0]: item[2:] for item in exceptions}
+stack = []
+
+def check(name):
+    for item in dict[name]:
+        if item in stack:
+            return False
+        elif not check(item):
+            return False
+    return True
+
+for item in queries:
+    if not check(item):
+        print(item)
+    stack.append(item)
