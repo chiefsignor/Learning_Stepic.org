@@ -67,3 +67,5 @@ while i != 0:
     i = int(input())
     c = i + c
 print(c)
+
+
