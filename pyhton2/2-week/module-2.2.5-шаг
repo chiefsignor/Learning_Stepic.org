@@ -1,0 +1,58 @@
+Задание: 
+В первой строке дано три числа, соответствующие некоторой дате date -- год, месяц и день.
+Во второй строке дано одно число days -- число дней.
+
+Вычислите и выведите год, месяц и день даты, которая наступит, когда с момента исходной даты date пройдет число дней, 
+равное days.
+
+Примечание:
+Для решения этой задачи используйте стандартный модуль datetime.
+Вам будут полезны класс datetime.date для хранения даты и класс datetime.timedelta﻿ для прибавления дней к дате.
+
+Решение№1:
+import datetime
+
+(y, m, d) = [int(n) for n in input().split()]
+d = datetime.date(y, m, d) + datetime.timedelta(int(input()))
+print(d.year, d.month, d.day)
+
+Решение№2:
+from datetime import datetime, timedelta
+print((datetime.strptime(input().strip(), "%Y %m %d") + timedelta(int(input().strip()))).strftime("%Y %-m %-d"))
+
+Решение№3:
+import datetime
+
+y, m, d = map(int, input().split())
+days = int(input())
+
+current = datetime.date(year=y, month=m, day=d)
+current += datetime.timedelta(days=days)
+
+print("{} {} {}".format(current.year, current.month, current.day))
+
+Решение№4:
+from datetime import date, timedelta
+y, m, d = map(int, input().split())
+sp=(str(date(y, m, d) + timedelta(days = int(input()))).split('-'))
+print (sp[0], int(sp[1]), int(sp[2]))
+
+Решение№5:
+from datetime import date
+from datetime import timedelta
+a, b, c = map(lambda x: int(x), input().split())   
+d = date(a, b, c)
+delta = timedelta(days=int(input()))
+d += delta
+print(d.year, d.month, d.day)
+
+Решение№6:
+import datetime
+print((datetime.datetime.strptime(input(), '%Y %m %d')+datetime.timedelta(days=int(input()))).strftime("%Y %-m %-d"))
+
+Решение№7:
+import datetime
+
+d = datetime.datetime.strptime(input(), "%Y %m %d").date() + datetime.timedelta(int(input()))
+print('{0.year} {0.month} {0.day}'.format(d))
+
