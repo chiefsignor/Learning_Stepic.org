@@ -1,0 +1,638 @@
+Шаг-7:
+Напишите программу, которая считывает с консоли числа (по одному в строке) до тех пор, пока сумма введённых чисел не будет 
+равна 0 и сразу после этого выводит сумму квадратов всех считанных чисел.
+
+Гарантируется, что в какой-то момент сумма введённых чисел окажется равной 0, после этого считывание продолжать не нужно.
+
+В примере мы считываем числа 1, -3, 5, -6, -10, 13; в этот момент замечаем, что сумма этих чисел равна нулю и выводим 
+сумму их квадратов, не обращая внимания на то, что остались ещё не прочитанные значения.
+
+Решение№1:
+s=0
+c=0
+while True:
+    b=int(input())
+    s+=b
+    c+=b**2
+    if s==0:
+        print(c)
+        break 
+        
+Решение№2:
+ans = []
+while not ans or sum(ans):
+    ans.append(int(input()))    
+print(sum([i**2 for i in ans]))
+
+Решение№3:
+s = [0] * 3
+s[2] = 1
+while s[2] :
+    i = int(input())
+    s = [s[0] + i, s[1] + i ** 2,s[0] + i]
+print(s[1])
+
+Решение№4:
+from functools import reduce
+l = lambda s: sum(s)==0 and s or l(s + [int(input())])
+print(reduce(lambda x,y: x + y**2, [0] + l([int(input())])))
+
+Решение№5:
+s=[int(input())]
+while sum(s)!=0: s += [int(input())]
+print(sum(map(lambda x: x**2, s)))
+
+Решение№6:
+a = int(input())         
+s = a**2
+b = a
+while b != 0 :
+    a = int(input())
+    s += a**2
+    b += a
+print(s)
+
+Решение№7:
+s = [int(input())]
+while sum(s):
+    s.append(int(input()))
+print(sum(i**2 for i in s))
+
+Решение№8:
+c,b=0,0
+while True:
+    a=int(input())
+    b+=a 
+    c+=a**2
+    if b==0:
+        break
+print(c)
+
+Шаг-8:
+Напишите программу, которая выводит часть последовательности 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5 ... 
+(число повторяется столько раз, чему равно). На вход программе передаётся неотрицательное целое число n — 
+столько элементов последовательности должна отобразить программа. На выходе ожидается последовательность чисел, 
+записанных через пробел в одну строку.
+
+Например, если n = 7, то программа должна вывести 1 2 2 3 3 3 4.
+
+Решение№1:
+a=[]
+for i in range(1,int(input())+1):
+    a.extend([i]*i)
+    print(a[i-1],end=' ')
+    
+Решение№2:
+b,n,list = 0,int(input()),[]
+while len(list)<n:
+    b+=1
+    list+=[b]*b
+print(*list[0:n])
+
+Решение№3:
+n=int(input())
+a=[]
+for i in range(n+1):
+  for i1 in range(i):
+    if len(a) >= n:break
+    a.append(i)
+print(' '.join(map(str, a)))
+
+Решение№4:
+n=int(input())
+s=[]
+for i in range(1,n+1):
+    s+=[i]*i
+for i in range(n):
+    print(s[i], end =' ')
+    
+Решение№5:
+n = int(input())
+a=[]
+a.append(1)
+i=2
+c=0
+while len(a)<n:
+    b=[i]*i
+    a+=b
+    i+=1
+    if len(a)>n:
+        c = len(a)-n
+        for p in range(-c-1,-1):
+            a.pop(p)
+for j in a:
+    print(j, end=' ')
+
+Решение№6:
+a=int(input())
+b=[]
+q=[]
+ql=0
+n=0
+while ql!=a:
+    for i in range(1, a+1):
+        if ql<a:
+            b=b+[i]
+            w=[b[i-1]]
+            w=w*i
+            q=q+w
+            ql=len(q)
+        if ql>a:
+            ql-=1
+            del q[ql]
+        if ql==a:
+            pass
+for i in q:
+    print(i, end=" ")
+    
+Решение№7:
+print(*(lambda a:sum([[i]*i for i in range(1,a+1)],[])[:a])(int(input())))
+
+Решение№8:
+a=[]
+for i in range(100):
+    b=([]+[i])*i
+    a+=b
+x=int(input())
+print(' '.join(str(j) for j in a[:x]))
+
+Шаг-9:
+Напишите программу, которая считывает список чисел lst из первой строки и число x из второй строки,
+которая выводит все позиции, на которых встречается число x в переданном списке lst.
+
+Позиции нумеруются с нуля, если число x не встречается в списке, вывести строку "Отсутствует" 
+(без кавычек, с большой буквы).
+
+Позиции должны быть выведены в одну строку, по возрастанию абсолютного значения.
+
+Решение№1:
+lst = [i for i in input().split()]
+x = int(input())
+if str(x) not in lst:
+    print("Отсутствует")
+else:
+    for i in range(len(lst)):
+        if int(lst[i]) == x:
+            print(i, end = " ")
+            
+Решение№2:
+st=[int(i) for i in input().split(' ')]
+x=int(input())
+new=''
+for i in range(0,len(st)):
+     if x==st[i]:
+            new +=str(i)+' '
+if new=='':
+    print ('Отсутствует')
+else:
+    print (new.strip())
+    
+Решение№3:
+lst = [int(i) for i in input().split()]
+x = int(input())
+cond = True
+for i in range(len(lst)):
+    if lst[i] == x:
+        print(i, end=' ')
+        cond = False
+if cond:
+    print('Отсутствует')
+    
+Решение№4:
+a,b=input(),input()
+print('Отсутствует' if not b in a else ' '.join([str(i) for i,x in enumerate(a.split()) if x==b]))
+
+Решение№5:
+lst = [int(i) for i in input().split()]
+g = int(input())
+if g not in lst:
+    print('Отсутствует')
+for i in range(len(lst)):
+    if lst[i] == g:
+        print(i, end=' ')
+        
+Решение№6:
+numbers = [int(i) for i in input().split()]
+n = int(input())
+
+if n in numbers:
+    print(*[num for num, val in enumerate(numbers) if val == n])
+else:
+    print('Отсутствует')
+    
+Решение№7:
+a = [int(i) for i in input().split()]
+x = int(input())
+
+if x not in a:
+    print("Отсутствует")
+else:
+    for i in range (len(a)):
+        if x == a[i]:
+            print(i, end = " ")
+
+Решение№8:
+lst, x, y = [i for i in input().split()], input(), 0
+if x not in list(lst):
+    print("Отсутствует")
+for i in lst:
+   y +=1
+   if i == x:
+       print(y-1, end=' ')
+
+Шаг-10:
+Напишите программу, на вход которой подаётся прямоугольная матрица в виде последовательности строк, 
+заканчивающихся строкой, содержащей только строку "end" (без кавычек)
+
+Программа должна вывести матрицу того же размера, у которой каждый элемент в позиции i, j равен сумме 
+элементов первой матрицы на позициях (i-1, j), (i+1, j), (i, j-1), (i, j+1). У крайних символов соседний 
+элемент находится с противоположной стороны матрицы.
+
+В случае одной строки/столбца элемент сам себе является соседом по соответствующему направлению.
+
+Решение№1:
+arr = []
+cnt = -1
+while True:
+    s = input()
+    if s == 'end':
+        break
+    cnt += 1
+    arr.append([])
+    for q in s.split():
+        arr[cnt].append(q)
+ii = len(arr)
+jj = len(arr[0])
+for i in range(ii):
+    for j in range(jj):
+        print(int(arr[i-1][j]) + int(arr[i-ii+1][j]) + 
+              int(arr[i][j-1]) + int(arr[i][j-jj+1]), end=' ')
+    print()
+    
+Решение№2:
+matrix = []
+
+# read matrix
+while True:
+    row = input()
+    if row == 'end':
+        break
+    matrix.append([int(i) for i in row.split()])
+
+# matrix of zeroes
+matrix_2 = [[0 for j in range(len(matrix[0]))] for i in range(len(matrix))]
+max_m2_outer = max(range(len(matrix_2)))
+max_m2_inner = max(range(len(matrix_2[0])))
+
+Решение№3:
+a = []
+
+while True:
+    b = [n for n in input().split()]
+    if b != ['end']:
+        for i in range(len(b)):
+            b [i]= int (b[i])
+        a.append(b)
+    else:
+        break
+for i in range (len(a)):
+    for j in range(len(a[i])):
+        print ((a[(i-1)%len(a)][j]+ a[(i+1)%len(a)][j] + a[i][(j-1)%len(a[i])] + a[i][(j+1)%len(a[i])]), end=" ")
+    print ()
+    
+Решение№4:
+z = []
+while True :
+    lst = str(input())
+    if lst == 'end' :
+        break
+    z.append([int(i) for i in lst.split()])
+    
+s = (len(z))
+for i in range(len(z)):
+    for j in range(len(z[i])):
+        print (z[i][j-len(z[i])+1] + z[i-s+1][j] + z[i][j-1] +z[i-1][j], end = ' ') 
+    print()
+    
+Решение№5:
+a = []
+while True :
+    lst = str(input())
+    if lst == 'end' :
+        break
+    a.append([int(i) for i in lst.split()])
+
+for i in range (len(a)):
+    for j in range (len(a[i])):
+        print(a[i-1][j] + a[i-len(a)+1][j] +a [i][j-1] + a[i][j-len(a[i])+1]  , end = " ")
+    print()
+    
+Решение№6:
+s = []
+while True:
+    try: s.append([int(i) for i in input().split()])
+    except: break
+row, col = len(s[0]), len(s)
+for i in range(col):
+    for j in range(row): print(s[i - 1][j] + s[(i + 1) % col][j] + s[i][j - 1] + s[i][(j + 1) % row], end=' ')
+    print()
+    
+Решение№7:
+m = []
+while 1:
+    a = input()
+    if (a != "end"):
+        lst  = [int(i)for i in a.split()]
+        aj = len(lst)
+        m.append(lst)
+    else:
+        break
+ai = len(m)
+if (ai != 0):
+    i = 0
+    j = 0
+    while i < ai:
+        while j < aj:
+            if(j+1 == aj):
+                if(i+1 == ai):
+                    r = m[i-1][j] + m[0][j] + m[i][j-1] + m[i][0]
+                    print (r, end=" ")
+                else:
+                    r = m[i-1][j] + m[i+1][j] + m[i][j-1] + m[i][0]
+                    print (r, end=" ")
+            else:
+                if(i+1 == ai):
+                    r = m[i-1][j] + m[0][j] + m[i][j-1] + m[i][j+1]
+                    print (r, end=" ")
+                else:
+                    r = m[i-1][j] + m[i+1][j] + m[i][j-1] + m[i][j+1]
+                    print (r, end=" ")
+            j = j + 1
+        print()
+        i = i + 1
+        j = 0
+
+Решение№8:
+def int_lst(x):
+    y = []
+    for i in x:
+        i = int(i)
+        y.append(i)
+    return y
+   
+matrix = []
+while True:
+    lst = [n for n in input().split()]
+    if lst != ['end']:
+        lst = int_lst(lst)
+        matrix.append(lst)
+    else:
+        break
+rows = len(matrix)
+cols = len(matrix[0])
+a = [[0 for j in range(cols)] for i in range(rows)]
+for i in range(rows):
+    for j in range(cols):
+        if i + 1 < rows and j + 1 < cols:
+            a[i][j] = matrix[i][j-1]+matrix[i][j+1]+matrix[i-1][j]+matrix[i+1][j]
+        elif i + 1 >= rows and j + 1 < cols:
+            a[i][j] = matrix[i][j-1]+matrix[i][j+1]+matrix[i-1][j]+matrix[0][j]
+        elif i + 1 < rows and j + 1 >= cols:
+            a[i][j] = matrix[i][j-1]+matrix[i][0]+matrix[i-1][j]+matrix[i+1][j]
+        else:
+            a[i][j] = matrix[i][j-1]+matrix[i][0]+matrix[i-1][j]+matrix[0][j]
+for t in a:
+    for r in t:
+        print (r, end=" ")
+    print()
+
+Шаг-11:
+Выведите таблицу размером n×n, заполненную числами от 1 до n2 по спирали, выходящей из левого верхнего угла и 
+закрученной по часовой стрелке, как показано в примере (здесь n=5):
+
+Решение№1:
+n = int(input())
+m = [[0] * n for i in range(n)]
+i, j, di, dj = 0, 0, 0, 1
+
+for k in range(n * n):
+    m[i][j] = k + 1
+    if (not -1 < i + di < n) or (not -1 < j + dj < n) or m[i + di][j + dj] != 0:
+        di, dj = dj, -di
+    i, j = i + di, j + dj
+[print(*i) for i in m]
+    
+Решение№2:
+n = int(input())
+mas = [[0] * n for i in range(n)]
+x, y, i, p = 0, 0, 1, 0
+direct = ('right')
+while True:
+    mas[x][y] = i
+    if (direct == ('right')):
+        x += 1
+        if ((x + 1) > (n - p)):
+            x -= 1
+            direct = ('down')
+            if (i == n ** 2):
+                break
+        else:
+            i += 1
+        continue
+    elif (direct == ('down')):
+        y += 1
+        if ((y + 1) > (n - p)):
+            y -= 1
+            direct = ('left')
+        else:
+            i += 1
+        continue
+    elif (direct == ('left')):
+        x -= 1
+        if (x < (0 + p)):
+            x += 1
+            p += 1
+            direct = ('up')
+        else:
+            i += 1
+        continue
+    elif (direct == ('up')):
+        y -= 1
+        if (y < (0 + p)):
+            y += 1
+            direct = ('right')
+        else:
+            i += 1
+        continue
+for i in range(n):
+    for j in range(n):
+        print(mas[j][i], end=' ')
+    print()
+    
+Решение№3:
+def aij(count):
+    a[i][j]=count
+    count+=1
+    return count
+
+n=int(input())
+a=[[0 for j in range(n)] for i in range(n)]
+count=1
+k=0
+p=n-1
+
+while p > k:
+    i = k
+    for j in range(k,p):
+        count=aij(count)
+    j = p
+    for i in range(k,p):
+        count=aij(count)
+    i = p
+    for j in range(p,k,-1):
+        count=aij(count)       
+    j = k
+    for i in range(p,k,-1):
+        count=aij(count)
+    k+=1
+    p-=1
+if n%2 == 1:
+    a[n//2][n//2]=count
+
+for i in range(len(a)):
+    for j in range(len(a[0])):
+        print(a[i][j],'\t', end='')
+    print()
+    
+Решение№4:
+n = int(input())
+mat = [ [0] * n for i in range(n)]
+
+block = n-1
+count = 1
+start = 0
+i = 0
+x = 0
+y = 0
+
+while start < n/2:
+    if start == block:
+        mat[start][block] = n*n
+        break
+    else:
+        for i in range(start, block):
+            mat[x][i]+=count
+            y+=1    
+            count+=1
+
+    for i in range(start, block):
+        mat[i][y]+=count
+        x+=1    
+        count+=1
+
+    for i in range(start, block):
+        mat[x][-i-1]+=count
+        y-=1    
+        count+=1
+
+    for i in range(start, block):
+        mat[-i-1][y]+=count
+        x-=1    
+        count+=1
+        
+    block-=1
+    x+=1
+    y+=1
+    start+=1
+    
+for i in range(n):
+    for j in range(n):
+        print(mat[i][j], end = '\t')
+    print()
+    
+Решение№5:
+k = int(input())
+m = [[0 for i in range(k)] for i in range(k)]
+step=0;
+const,dy,dx = 1,0,0
+for n in range(k,-1,-1):
+	for dx in range(0+step,n):
+		if m[dy][dx]!=0:
+			continue
+		else:
+			m[dy][dx]=const
+			const+=1
+	for dy in range(0+step,n):
+		if m[dy][dx]!=0:
+			continue
+		else:
+			m[dy][dx]=const
+			const+=1
+	for dx in range(n-1,-1+step,-1):
+		if m[dy][dx]!=0:
+			continue
+		else:
+			m[dy][dx]=const
+			const+=1
+	for dy in range(n-1,0+step,-1):
+		if m[dy][dx]!=0:
+			continue
+		else:
+			m[dy][dx]=const
+			const+=1
+	step+=1
+for j in m:
+	for i in j:
+		print(i,end=' ')
+	print()
+
+Решение№6:
+n = int(input())
+num = [[0] * n for y in range(n)]
+y, x, dy, dx = 0, 0, 0, 1
+
+for k in range(n*n):
+    num[y][x] = k+1
+    if  (y+dy not in range(-1,n)or    #не столбец
+         x+dx not in range(-1,n)or    #не строка
+         num[y + dy][x + dx] > 0):    #следующая занята
+        dx, dy = -dy, dx              #то - переприсваивание
+        
+    y, x = y + dy, x + dx
+
+[print(*i) for i in num]
+
+Решение№7:
+a=int(input())
+y,x,vy,vx,c,z,ce,f,m=0,0,0,1,0,1,a,False,[[0] * a for i in range(a)]
+for i in range(a*a):
+	m[y][x]=i+1
+	c+=1
+	if ce==c:
+		f=not f
+		if f:
+			ce-=1
+		else:
+			z=-1*z
+		c=0
+		vx,vy=(0,1*z) if vx!=0 else (1*z,0)
+	y,x=y+vy,x+vx
+[print(*i) for i in m]
+
+Решение№8:
+def zm(n):
+    dx, dy = 1, 0
+    x, y = 0, 0
+    arr = [[None] * n for _ in range(n)]
+    for i in range(1, n**2+1):
+        arr[x][y] = i
+        nx, ny = x+dx, y+dy
+        if 0 <= nx < n and 0 <= ny < n and not arr[nx][ny]:
+            x, y = nx, ny
+        else:
+            dx, dy = -dy, dx
+            x, y = x+dx, y+dy
+    for x in list(zip(*arr)):
+        print(*x)
+
+zm(int(input()))
