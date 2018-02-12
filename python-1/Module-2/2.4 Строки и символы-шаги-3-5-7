@@ -1,0 +1,145 @@
+Шаг-3:
+GC-состав является важной характеристикой геномных последовательностей и определяется как процентное соотношение 
+суммы всех гуанинов и цитозинов к общему числу нуклеиновых оснований в геномной последовательности. 
+Напишите программу, которая вычисляет процентное содержание символов G (гуанин) и C (цитозин) в введенной строке 
+(программа не должна зависеть от регистра вводимых символов).
+Например, в строке "acggtgttat" процентное содержание символов G и C равно 410⋅100=40.0, где 4 -- это количество 
+символов G и C,  а 10 -- это длина строки.
+
+Решение№1:
+q = input().lower()
+print(((q.count('g')+q.count('c'))/len(q))*100)
+
+Решение№2:
+s = input()
+s =s.lower()
+#n = len(s)
+print( 100*(s.count('g')+s.count('c'))/len(s))
+
+Решение№3:
+s = input()
+exec("print((s.lower().count('c')+s.lower().count('g'))/len(s)*100)")
+
+Решение№4:
+gen = input()
+x = gen.upper().count('G') + gen.upper().count('C')
+y = 0
+for i in gen:
+	y += 1
+print((x / y) * 100)
+
+Решение№5:
+s = input().lower()
+print((s.count('g')+s.count('c'))/len(s)*100)
+
+Шаг-5:
+Есть строка s = "abcdefghijk".
+В поле ответа через пробел запишите строки (без кавычек), полученные в результате следующих операций:
+
+# s = 'abcdefghijk'
+s[3:6]
+s[:6]
+s[3:]
+s[::-1]
+s[-3:]
+s[:-6]
+s[-1:-10:-2]
+
+Попробуйте найти ответ к этой задаче, не используя интерпретатор Python. 
+Если без интерпретатора решить не получается, разберитесь, почему выводятся именно такие строки в каждом из вариантов.
+Итоговый формат ответа должен выглядеть следующим образом:
+abcd efg hijklmnop qrst uvw xy z
+
+Ответ: def abcdef defghijk kjihgfedcba ijk abcde kigec
+
+Шаг-7:
+знав, что ДНК не является случайной строкой, только что поступившие в Институт биоинформатики студенты группы 
+информатиков предложили использовать алгоритм сжатия, который сжимает повторяющиеся символы в строке.
+Кодирование осуществляется следующим образом:
+s = 'aaaabbсaa' преобразуется в 'a4b2с1a2', то есть группы одинаковых символов исходной строки заменяются на этот 
+символ и количество его повторений в этой позиции строки.
+Напишите программу, которая считывает строку, кодирует её предложенным алгоритмом и выводит закодированную 
+последовательность на стандартный вывод. Кодирование должно учитывать регистр символов.
+
+Решение№1:
+a = input()
+cnt = 1
+for i in range(len(a)):
+    if i == len(a)-1 or a[i] != a[i+1]:
+        print (a[i]+str(cnt), end='')
+        cnt = 1
+    elif a[i] == a[i+1]:
+        cnt += 1
+        
+Решение№2:
+s = input()
+result = ''
+count = len(s)
+i = 0
+
+while i < count:
+    result += s[i]
+    countCurrentI = 1
+    while True:
+        if (i + 1 < count) and (s[i + 1] == s[i]):
+            countCurrentI += 1
+        else:
+            break
+        i += 1
+    result += str(countCurrentI)
+    i += 1
+
+print(result)
+
+Решение№3:
+a=str(input())
+temp=a[0]
+count_1=1
+for i in range(1,len(a)):
+	if temp==a[i]:
+		count_1+=1
+	else:
+		print(temp+str(count_1),end="")
+		temp=a[i]
+		count_1=1
+print(temp+str(count_1),end="")
+
+Решение№4:
+s = input()
+ds = len(s)
+count = 1
+for i in range(ds):
+    if i == (ds - 1):
+        print(s[i]+str(count), end='')
+    else:
+        if s[i] == s[i+1]:
+            count = count + 1
+        else:
+            print(s[i]+str(count), end='')
+            count = 1
+
+Решение№5:
+s = input()
+l = [(i, c) for i, c in enumerate(' ' + s) if c != (s + ' ')[i]]
+print(''.join([c + str(i - l[ix - 1][0]) for ix, (i, c) in enumerate(l[1:], start=1)]))
+
+Решение№6:
+s, res = input (), ''
+cnt = 1
+
+for i in range (0, len(s)):
+    if s[i] == s[i+1:i+2]:
+        cnt += 1
+    else:
+        res += s[i] + str(cnt)
+        cnt = 1
+print (res)
+
+Решение№7:
+s,k = input(),1
+for i in range(len(s)):
+    if s[i] in s[i+1:i+2]:
+        k += 1
+    else:
+        print(s[i]+str(k),end='')
+        k = 1
