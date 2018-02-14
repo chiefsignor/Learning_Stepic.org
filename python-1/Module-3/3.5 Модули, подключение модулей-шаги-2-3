@@ -1,0 +1,66 @@
+3.5 Модули, подключение модулей
+ 
+Шаг - 2:
+Напишите программу, которая подключает модуль math и, используя значение числа π из этого модуля, находит для 
+переданного ей на стандартный ввод радиуса круга периметр этого круга и выводит его на стандартный вывод.
+
+Решение№1:
+import math 
+r = float(input())
+p = math.pi*r*2
+print(p)
+
+Решение№2:
+import math
+print(2 * float(input()) * math.pi)
+
+Решение№3:
+import math
+print (2*math.pi*float(input()))
+
+Решение№4:
+import math
+r = float(input())
+print(str(r*2*math.pi))
+
+
+
+
+Шаг - 3:
+Напишите программу, которая запускается из консоли и печатает значения всех переданных аргументов на экран 
+(имя скрипта выводить не нужно). Не изменяйте порядок аргументов при выводе.
+
+Для доступа к аргументам командной строки программы подключите модуль sys и используйте переменную argv из этого модуля.
+
+Пример работы программы:
+
+> python3 my_solution.py arg1 arg2
+arg1 arg2
+
+Решение№1:
+import sys
+s = ''
+s2 = ''
+for i in range(1,len(sys.argv)):
+    s = s + sys.argv[i]+' '
+s2 = s
+print(s2,end=' ')
+
+Решение№2:
+import sys
+a=(sys.argv)
+print(*a[1:])
+
+Решение№3:
+from sys import argv
+print(*argv[1:])
+
+Решение№4:
+import sys
+S=sys.argv[1:]
+for i in range(len(S)):
+    print(''.join(map(str, S[i])), end=' ')
+    
+Решение№5:
+from sys import argv as a
+print(*a[1:])
