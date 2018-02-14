@@ -1,0 +1,205 @@
+Шаг - 2:
+На прошлой неделе мы сжимали строки, используя кодирование повторов. Теперь нашей задачей будет восстановление исходной 
+строки обратно.
+
+Напишите программу, которая считывает из файла строку, соответствующую тексту, сжатому с помощью кодирования повторов, 
+и производит обратную операцию, получая исходный текст.
+
+Запишите полученный текст в файл и прикрепите его, как ответ на это задание.
+
+В исходном тексте не встречаются цифры, так что код однозначно интерпретируем.
+
+Примечание. Это первое задание типа Dataset Quiz. В таких заданиях после нажатия "Start Quiz" 
+у вас появляется ссылка "download your dataset". Используйте эту ссылку для того, чтобы загрузить файл со входными 
+данными к себе на компьютер. Запустите вашу программу, используя этот файл в качестве входных данных. Выходной файл, 
+который при этом у вас получится, надо отправить в качестве ответа на эту задачу. 
+
+Решение№1:
+with open('dataset_3363_2.txt') as inf:
+    s = inf.readline()
+numbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
+n = 0
+for k in s:
+  if n > 0 and k in numbers:
+    n = 0
+    number1 = str(number) + str(k)
+    print(letter * (int(number1) - int(number)), end='')
+  else:
+    if k in numbers:
+      number = str(k)
+      n += 1
+      print(letter * int(k), end='')
+    else:
+      letter = k
+      n = 0
+      
+Решение№2:
+n = 'J6h9Y10r6Y13o13W2A19m9B2U14o16k14d14W11a9p10z11U3J11s4l8q161'
+n=list(n)
+num_list = []
+num_str_list = []
+x = 0
+for i in n:
+    if i.isdigit():
+        num_list.append(i)
+    else:
+        num_str = ''.join(num_list)
+        num_str_list.append(num_str)
+        num_list.clear()
+num_str = ''.join(num_list)
+num_str_list=num_str_list[1:]
+num_str_list.append(num_str)
+n = list(set(n).difference(num_str_list))
+for j in n:
+        if j.isalpha():
+            print(j*int(num_str_list[x]),end='')
+            x+=1
+
+Решение№3:
+code = open('dataset_3363_2.txt', 'r').readline()
+
+result = ''
+alpha = ''
+digit = 0
+
+for i in code:
+    if i.isalpha():
+        result += alpha * digit
+        alpha = i
+        digit = 0
+    if i.isdigit():
+        digit = int(str(digit) + i)
+        
+result += alpha * digit
+
+print(result) 
+
+Решение№4:
+import re
+inf=open('test.txt','r')
+ouf=open('out.txt','w')
+s=inf.readline().strip()
+a=re.split('(\D)',s)
+del(a[0])
+l=''
+for k in range(len(a)//2):
+    l=l+(a[k*2])*int(a[k*2+1])
+ouf.write(l)
+ouf.close()
+inf.close()
+
+
+
+
+
+Шаг - 3:
+Недавно мы считали для каждого слова количество его вхождений в строку. Но на все слова может быть не так 
+интересно смотреть, как, например, на наиболее часто используемые.
+
+Напишите программу, которая считывает текст из файла (в файле может быть больше одной строки) и выводит 
+самое частое слово в этом тексте и через пробел то, сколько раз оно встретилось. Если таких слов несколько, вывести лексикографически первое (можно использовать оператор < для строк).
+
+Слова, написанные в разных регистрах, считаются одинаковыми.
+
+Решение№1:
+text = []
+with open('dataset_3363_3.txt') as inf:
+    for line in inf:
+      line = line.lower().strip().split()
+      text += line
+s = set(text)
+n = 0
+for x in s:
+  if n < text.count(x):
+    word = x
+    n = text.count(x)
+print(word, n)
+
+Решение№2:
+from collections import Counter
+f = []
+with open('dataset_3363_3.txt') as file:
+    for string in file:
+        f += (string.lower().split())
+count = Counter(f)
+h = [key for key,val in count.iteritems() if val == max(count.values())]
+h.sort()
+with open('dataset_3363_3_answer.txt', 'w' ) as file:
+    file.write(str(h[0]) + ' ' + str(count[h[0]]))
+
+Решение№3:
+import os
+sl={}
+with open(os.path.join('C:\\','dataset_3363_3.txt')) as inf:s=inf.read().lower().strip().split()
+s.sort()
+for i,item in enumerate(s):
+    if len(s)!=i+1:sl[s.count(item)]=item
+print(sl[max(sl)],(max(sl)))
+
+Решение№4:
+d={}
+with open('input.txt') as inf:
+    for line in inf:
+        for s in line.strip().lower().split():
+            d[s] = d.setdefault(s,0)+1
+maxvalue = max(d.values())
+res = sorted([key for key,value in d.items() if value==maxvalue])
+with open('output.txt','w') as ouf:
+    ouf.write(res[0]+' '+str(maxvalue))
+
+
+
+
+
+Шаг - 4:
+Имеется файл с данными по успеваемости абитуриентов. Он представляет из себя набор строк, где в каждой строке
+записана следующая информация:
+
+Фамилия;Оценка_по_математике;Оценка_по_физике;Оценка_по_русскому_языку
+
+Поля внутри строки разделены точкой с запятой, оценки — целые числа.
+
+Напишите программу, которая считывает файл с подобной структурой и для каждого абитуриента выводит его среднюю 
+оценку по этим трём предметам на отдельной строке, соответствующей этому абитуриенту.
+
+Также в конце файла, на отдельной строке, через пробел запишите средние баллы по математике, физике и русскому 
+языку по всем абитуриентам:
+
+Примечание. Для разбиения строки на части по символу ';' можно использовать метод split следующим образом: 
+
+print('First;Second-1 Second-2;Third'.split(';'))
+# ['First', 'Second-1 Second-2', 'Third']
+
+
+Решение№1:
+import sys
+import statistics
+f = sys.stdin
+l = [list(map(float, l.strip().split(";")[1:])) for l in f]
+print(*[statistics.mean(s) for s in l], sep="\n")
+print(*[statistics.mean(i) for i in zip(*l)])
+
+Решение№2:
+st = [x.split(';') for x in open('fl.txt').readlines()]
+print(*[sum([int(y) for y in x[1:]])/3 for x in st], sep='\n')
+print(*[sum([int(y) for y in [st[x][z] for x in range(len(st))]])/len(st) for z in range(1,4)])
+
+Решение№3:
+koll, a1, b1, c1 = 0, 0, 0, 0
+with open('dataset_3363_4.txt', 'r') as inf:
+    for line in inf:
+        line = line.strip().split(';')
+        a, b, c = int(line[1]), int(line[2]), int(line[3])
+        print((a+b+c)/3)
+        koll += 1
+        a1 += a
+        b1 += b
+        c1 += c
+print((a1/koll), (b1/koll), (c1/koll))
+
+Решение№4:
+with open('input3.txt') as fi:
+    st = [list(map(float, t.strip().split(';')[1:])) for t in fi]
+with open('output3.txt', 'w') as fo:
+    fo.write('\n'.join(str((math+phis+russ)/3) for math, phis, russ in st))
+    fo.write('\n'+' '.join([str(sum([int(y) for y in [st[x][z] for x in range(len(st))]])/len(st)) for z in range(3)]))
