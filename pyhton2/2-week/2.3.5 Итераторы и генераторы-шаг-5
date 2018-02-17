@@ -34,7 +34,7 @@ def primes():
         else:
 
             for p in D[q]:
-                D.setdefault(p + q, []).append(p)
+                D.setdefault(p + q, []).append(p) 
             del D[q]
 
         q += 1
