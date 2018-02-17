@@ -1,0 +1,101 @@
+Решения задач с сайта stepic.org на Python
+2.3 Итераторы и генераторы-шаг-5
+ 
+
+
+Задание:
+
+Целое положительное число называется простым, если оно имеет ровно два различных делителя, то есть делится только на 
+единицу и на само себя.
+Например, число 2 является простым, так как делится только на 1 и 2. Также простыми являются, например, числа 3, 5, 31, 
+и еще бесконечно много чисел.
+Число 4, например, не является простым, так как имеет три делителя – 1, 2, 4. Также простым не является число 1, так как 
+оно имеет ровно один делитель – 1.
+
+Реализуйте функцию-генератор primes, которая будет генерировать простые числа в порядке возрастания, начиная с числа 2.
+
+Пример использования:
+
+print(list(itertools.takewhile(lambda x : x <= 31, primes())))
+# [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+
+Решение№1:
+import itertools
+def primes():
+    D = {}
+
+    q = 2
+
+    while True:
+        if q not in D:
+
+            yield q
+            D[q * q] = [q]
+        else:
+
+            for p in D[q]:
+                D.setdefault(p + q, []).append(p)
+            del D[q]
+
+        q += 1
+        
+Решение№2:
+def primes():
+    i, f = 2, 1  # число и факториал предыдущего числа
+    while True:
+        if (f + 1) % i == 0:  # проверяем на простоту по теореме Вильсона через факториал
+            yield i
+        f, i = f * i, i + 1  # сначала пересчитываем факториал для текущего числа, затем увеличиваем число
+        
+Решение№3:
+def primes():
+    
+    k = 2
+    while True:
+        if all(k % i for i in range(2, int(k ** 0.5) + 1)):
+            yield k
+        k += 1
+        
+Решение№4:
+def primes():
+    i = 2
+    while True:
+        is_prime = True
+        divisor = 2
+        while divisor ** 2 <= i:
+            if i % divisor == 0:
+                is_prime = False # non-trivial divisor
+                break
+
+            divisor += 1
+
+        if is_prime:
+            yield i
+
+        i += 1
+
+Решение№5:
+def primes():
+    p, div = 1, []
+    while(True):
+        p += 1
+        if not any(not p % d for d in div):
+            yield p
+            div.append(p)
+            
+Решение№6:
+def primes():
+    x, primes_list = 2, []
+    while True:
+        flag = 1
+        for prime in primes_list:
+            if x % prime == 0:
+                flag = 0
+                break
+        if flag:
+            primes_list.append(x)
+            yield x
+        x += 1
+        
+Решение№7:
+def primes(): return [i for i in range(2,10001) if True not in [i%j==0 for j in range(2,i)]]
