@@ -1,0 +1,60 @@
+№1
+import os
+
+result = [cur_dir for cur_dir, dirs, files in os.walk("main") if any((fl.endswith(".py")
+    for fl in files))]
+
+with open("py_dirs.txt", "w") as w:
+    w.write("\n".join(sorted(result)))
+
+№2
+for current_dir, dirs, files in os.walk("main"):
+    for a in files:
+        if a[-2:] == 'py':
+            print(current_dir)
+            break
+            
+№3
+import os
+
+for cur_dir, subdirs, files in os.walk("main"):
+    for file in files:
+        if file.endswith(".py"):
+            print(cur_dir)
+            break
+
+№4
+import zipfile
+
+with zipfile.ZipFile("main.zip") as myzip:
+    li = [item for item in myzip.namelist() if item.endswith(".py")]
+    print('\n'.join(sorted(set(d[:d.rfind('/')] for d in li))))
+    
+№5
+import os
+
+out_dirs = []
+for dir, dirs, files in os.walk("main"):
+    for file in files:
+        if file.endswith(".py") and dir not in out_dirs:
+            print(dir)
+
+№6
+import os
+import zipfile
+
+os.getcwd()
+os.chdir('main')
+sp1=[]
+for current_dir, dirs, files in os.walk('.'):
+    for file in files:
+        if file.endswith('.py'):
+            current_dir = current_dir.replace('.','main')
+            current_dir = current_dir.replace('\\','/')
+            sp1.append(current_dir)
+sp1 = list(set(sp1))
+sp1.sort()
+with open('s.txt','w') as f1:
+    f1.write('\n'.join(sp1))
+s1 = open('s.txt','r')
+print(s1.read())
