@@ -1,0 +1,14 @@
+#1:
+with open("123.txt") as f, open("123_copy.txt", "w") as f2:
+  for line in reversed(list(f)):
+    f2.write(line)
+
+#2:
+with open('dataset_24465_4.txt', 'r') as fr, open('dataset_24465_4_w.txt', 'w') as fw:
+    fw.writelines(fr.readlines()[::-1])
+
+#3:
+print(*reversed(open("sample.txt").readlines()), sep="")
+
+#4:
+tail -r dataset_24465_4.txt > reverse.txt
