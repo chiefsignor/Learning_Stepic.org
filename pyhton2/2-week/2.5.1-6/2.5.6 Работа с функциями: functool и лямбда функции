@@ -1,0 +1,12 @@
+Decision #1:
+def mod_checker(x, mod=0):
+    return lambda y: y % x == mod
+    
+Decision #2:
+def mod_checker(x, mod=0):
+    def check(y):
+        return y % x == mod
+    return check
+    
+Decision #3:
+mod_checker = lambda x, mod = 0:lambda y:y % x == mod
