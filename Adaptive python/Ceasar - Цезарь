@@ -1,0 +1,60 @@
+Задание про цезаря))
+
+#1 - decision:
+s=int(input())
+f=input().strip()
+alf=' abcdefghijklmnopqrstuvwxyz'
+print("Result: \42",end="")
+for i in f:
+    m = alf.find(i)
+    print(alf[(m+s)%27], sep="",end="")
+print("\42")
+
+#2 - decision:
+shift, string = int(input()) % 27, input().strip()
+code1 = ' abcdefghijklmnopqrstuvwxyz'
+code2 = code1[shift:] + code1[:shift]
+
+print('Result: "{}"'.format(string.translate(str.maketrans(code1, code2))))
+
+#3 - decision:
+shiftNumber = int(input())
+string, resultString = input().strip(), ''
+alphabet = {0: ' ', 1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e',
+            6: 'f', 7: 'g', 8: 'h', 9: 'i', 10: 'j', 11: 'k',
+            12: 'l', 13: 'm', 14: 'n', 15: 'o', 16: 'p', 17: 'q',
+            18: 'r', 19: 's', 20: 't', 21: 'u', 22: 'v', 23: 'w',
+            24: 'x', 25: 'y', 26: 'z'}
+
+for char in string:
+    for key in alphabet:
+        for value in alphabet[key]:
+                if(char == value):
+                    resultString += alphabet[(key+shiftNumber)%27]
+
+#4 - decision:
+p =  ' abcdefghijklmnopqrstuvwxyz'
+c = int(input())
+a = input().strip()
+s = ''
+for i in a:
+    s += p[(p.find(i) + c) % 27]
+print('Result:', '"' + str(s) + '"')
+
+#5 - decision:
+a, n = ' abcdefghijklmnopqrstuvwxyz', int(input())%27
+print('Result: \"{}\"'.format(''.join([(a*3)[a.find(i)+len(a)+n] for i in input().strip()])))
+
+#6 - decision:
+d = int(input())
+txt = input().strip()
+alph = ' abcdefghijklmnopqrstuvwxyz'
+encoded = ''.join([alph[(alph.index(c) + d) % len(alph)] for c in txt])
+print('Result: "', encoded, '"', sep='')
+
+#7 - decision:
+abc = ' abcdefghijklmnopqrstuvwxyz'
+n = int(input())
+inp = input().strip()
+res = [abc[(abc.index(c) + n) % len(abc)] for c in inp]
+print('Result: "' + ''.join(res) + '"')
