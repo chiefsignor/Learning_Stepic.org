@@ -1,0 +1,65 @@
+Задание 3.2.6:
+Вашей программе на вход подаются три строки s, a, b, состоящие из строчных латинских букв.
+За одну операцию вы можете заменить все вхождения строки a в строку s на строку b.
+
+Например, s = "abab", a = "ab", b = "ba", тогда после выполнения одной операции строка s перейдет в строку "baba",
+после выполнения двух и операций – в строку "bbaa", и дальнейшие операции не будут изменять строку s.
+
+Необходимо узнать, после какого минимального количества операций в строке s не останется вхождений строки a, либо же 
+определить, что это невозможно.
+
+Выведите одно число – минимальное число операций, после применения которых в строке s не останется вхождений строки a.
+Если после применения любого числа операций в строке s останутся вхождения строки a, выведите Impossible.
+
+Решение №1:
+n, (s, a, b) = 0, (input().rstrip() for i in range(3))
+while a in s:
+    n += 1
+    s = b.join(s.split(a))
+    if a in b and a in s:
+        break
+print("Impossible" if a in b and a in s else n)
+
+Решение №2:
+s = input()
+a = input()
+b = input()
+
+if a not in s:
+    print(0)
+elif a in b:
+    print("Impossible")
+else:
+    ans = 0
+    while a in s:
+        s = s.replace(a, b)
+        ans += 1
+
+Решение №3:
+n, (s, a, b) = 0, (input().strip() for _ in range(3))
+while a in s:
+    n += 1
+    s = b.join(s.split(a))
+    if a in b and a in s:
+        break
+print("Impossible" if a in b and a in s else n)
+
+Решение №4:
+s, a, b, i = [input() for i in range(3)] + [0]  
+while a in s:
+    if a in b: i = 'Impossible'; break
+    s, i = s.replace(a, b), i + 1
+print(i)
+
+Решение №5:
+s, a, b = (input() for _ in (1, 2, 3))
+i = 0
+
+if a in b and a in s:
+    i = "Impossible"
+else:
+    while a in s:
+        s = s.replace(a, b)
+        i += 1
+        
+print(i)
