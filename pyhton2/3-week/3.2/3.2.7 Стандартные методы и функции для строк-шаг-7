@@ -1,0 +1,51 @@
+Задание 3.2.7:
+Вашей программе на вход подаются две строки s и t, состоящие из строчных латинских букв.
+
+Выведите одно число – количество вхождений строки t в строку s.
+
+Пример:
+s = "abababa"
+t = "aba"
+
+Вхождения строки t в строку s:
+abababa
+abababa
+abababa
+
+
+Решение №1:
+s = input()
+t = input()
+counter = 0
+p = s.find(t)
+while p > -1:
+    counter += 1
+    s = s[p+1::]
+    p = s.find(t)
+print(counter)    
+
+
+Решение №2:
+import re
+s, sub = (input() for _ in range(2))
+print(len(re.findall(r'(?=({}))'.format(sub), s)))
+
+
+Решение №3:
+a, b, c, s = input(), input(), -1, -1
+while not c >= 0 > s: c, s = c + 1, a.find(b, s + 1)
+print(c)
+
+Решение №4:
+w=[input() for _ in range(2)]
+w.append(0)
+while w[0].find(w[1]) != -1:
+    w[2] += 1
+    w[0] = w[0][w[0].find(w[1])+1:]
+print(w[2])
+
+
+Решение №5:
+s, t, n = input(), input(), 0
+while t in s: s, n = s[s.find(t)+1:], n+1
+print(n)
