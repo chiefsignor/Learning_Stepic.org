@@ -31,7 +31,7 @@ else:
     ans = 0
     while a in s:
         s = s.replace(a, b)
-        ans += 1
+        ans += 1 
 
 Решение №3:
 n, (s, a, b) = 0, (input().strip() for _ in range(3))
