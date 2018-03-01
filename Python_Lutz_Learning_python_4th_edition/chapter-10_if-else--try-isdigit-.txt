@@ -1,0 +1,133 @@
+>>> while True:
+...     reply = input('Enter text:')
+...     if reply == 'stop': break
+...     print(reply.upper())
+... 
+Enter text:asdf
+ASDF
+Enter text:asdf
+ASDF
+Enter text:stop
+>>> 
+>>> 
+>>> 
+>>> while True:
+...     reply = input('Enter text:')
+...     if reply == 'stop': break
+...     print (int(reply) ** 2)
+... 
+Enter text:2
+4
+Enter text:5
+25
+Enter text:45
+2025
+Enter text:3
+9
+Enter text:32
+1024
+Enter text:stop
+>>> print ('Bye')
+Bye
+>>> 
+
+
+__________________________________________________
+while True:
+    reply = input('Enter text:')
+    if reply == 'stop': break
+    print (int(reply) ** 2)
+print ('Bye')
+
+
+while True:
+    reply = input('Enter text:')
+    if reply == 'stop':
+        break
+    elif not reply.isdigit():
+        print('Bad!' * 8)
+    else:
+        print(int(reply) ** 2)
+print('Bye')
+__________________________________________________
+__________________________________________________
+while True:
+    reply = input('Enter text:')
+    if reply == 'stop': break
+    try:
+        num = int(reply)
+    except:
+        print('Bad! ' * 5)
+    else:
+        print(int(reply) ** 2)
+print('Bye!')
+__________________________________________________
+__________________________________________________
+while True:
+    reply = input('Enter text: ')
+    if reply == 'stop':
+        break
+    elif not reply.isdigit():
+        print('Bad!' * 8)
+    else:
+        num = int(reply)
+        if num < 20:
+            print('low')
+        else:
+            print(num ** 2)
+print('Bye')
+__________________________________________________
+__________________________________________________
+while True:
+    reply = input('Enter text: ')
+    if reply == 'stop':
+        break
+    elif not reply.isdigit():
+        print('Bad!' * 8)
+    else:
+        num = int(reply)
+        if num < 20:
+            print('low' * 8)
+        elif num > 100:
+            print('high' * 8)
+        else:
+            print(num ** 2)
+print('Bye')
+__________________________________________________
+
+>>> while True:
+...     reply = input('Enter text: ')
+...     if reply == 'stop':
+...             break
+...     elif not reply.isdigit():
+...             print('Bad!' * 5)
+...     else:
+...             num = int(reply)
+...             if num < 10:
+...                     print('Low!')
+...             elif num > 30:
+...                     print('High! ')
+...             else: print(num ** 2)
+... 
+Enter text: 6
+Low!
+Enter text: 0
+Low!
+Enter text: 7
+Low!
+Enter text: 12
+144
+Enter text: 43
+High! 
+Enter text: 23
+529
+Enter text: 26
+676
+Enter text: 44
+High! 
+Enter text: sda
+Bad!Bad!Bad!Bad!Bad!
+Enter text: stop
+>>> 
+>>> 
+

@@ -1,0 +1,105 @@
+>>> 
+>>> if 1:
+...     print 'true'
+  File "<stdin>", line 2
+    print 'true'
+               ^
+SyntaxError: Missing parentheses in call to 'print'
+>>> 
+
+>>> if 1:
+...     print ('true')
+... 
+true
+>>> 
+>>> if not 1:
+...     print('True')
+... else:
+...     print('False')
+... 
+False
+>>> 
+>>> 
+>>> x = 'killer rabbit'
+>>> if x == 'roger':
+...     print("how's jessica?")
+... elif x == 'bugs':
+...     print("what's up doc?")
+... else:
+...     print("Run away! Run away!")
+... 
+Run away! Run away!
+>>>
+>>> 
+>>> choice = 'ham'
+>>> print({'spam': 1.25, 'ham': 1.99, 'eggs': 0.99, 'bacon': 1.10}[choice])
+1.99
+>>> 
+>>> 
+>>> choice = 'ham'
+>>> print({'spam': 1.25,
+...        'ham': 1.99,
+...        'eggs': 0.99,
+...        'bacon': 1.10}[choice]
+... )
+1.99
+>>> 
+>>> 
+>>> if choice == 'spam':
+...     print(1.25)
+... elif choice == 'ham':
+...     print(1.99)
+... elif choice == 'eggs':
+...     print(0.99)
+... elif choice == 'bacon':
+...     print(1.10)
+... else:
+...     print('Bad choice')
+... 
+1.99
+>>> 
+>>> 
+>>> branch = {'spam': 1.25,
+...           'ham': 1.99,
+...           'eggs': 0.99}
+>>> print(branch.get('spam', 'Bad choice'))
+1.25
+>>> print(branch.get('bacon', 'Bad choice'))
+Bad choice
+>>> 
+>>> 
+>>> choice = 'bacon'
+>>> if choice in branch:
+...     print(branch[choice])
+... else:s
+...     print('Bad choice')
+... 
+Bad choice
+>>> 
+>>> 
+>>> x = 'SPAM'
+>>> if 'rubbery' in 'shrubbery':
+...     print(x * 8)
+...     x += 'NI'
+...     if x.endswith('NI'):
+...           x *= 2
+...           print(x)
+... 
+SPAMSPAMSPAMSPAMSPAMSPAMSPAMSPAM
+SPAMNISPAMNI
+>>> 
+>>> 
+>>> A = 't' if 'spam' else 'f'
+>>> 
+>>> A
+'t'
+>>> A = 't' if '' else 'f'
+>>> A
+'f'
+>>> 
+>>> 
+
+
+ 
+
+

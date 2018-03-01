@@ -1,0 +1,568 @@
+>>> while True:
+...     print('Type Ctrl-C to stop me!')
+... 
+Type Ctrl-C to stop me!
+Type Ctrl-C to stop me!
+Type Ctrl-C to stop me!
+KeyboardInterrupt
+>>> 
+>>> 
+>>> x = 'spam'
+>>> while x:
+...     print(x, end=' ')
+...     x = x[1:]
+... 
+spam pam am m >>> 
+>>> 
+>>> 
+>>> a = 0; b = 10
+>>> while a < b:
+...     print(a, end=' ')
+...     a += 1
+... 
+0 1 2 3 4 5 6 7 8 9 >>> 
+>>> 
+>>> 
+>>> x = 10
+>>> while x:
+...     x = x - 1
+...     if x % 2 != 0: continue
+...     print(x, end=' ')
+... 
+8 6 4 2 0 >>> 
+>>> 
+>>> 
+>>> x = 10
+>>> while x:
+...     x = x - 1
+...     if x % 2 == 0:
+...             print(x, end=' ')
+... 
+8 6 4 2 0 >>> 
+>>> 
+>>> 
+>>> 
+>>> while 1:
+...     name = input('Enter name: ')
+...     if name == 'stop': break
+...     age = input('Enter age: ')
+...     print('Hello', name, '=>', int(age) ** 2
+... 
+... 
+... )
+... 
+Enter name: Sanzh
+Enter age: 28
+Hello Sanzh => 784
+Enter name: asd
+Enter age: 40
+Hello asd => 1600
+Enter name: stop
+>>> 
+>>> 
+>>> 
+>>> y = int(input())
+6
+>>> x = y // 2
+>>> while x > 1:
+...     if y % x == 0:
+...         print(y, 'has factor', x)
+...         break
+...     x -= 1
+... else:
+...     print(y, 'is prime')
+... 
+6 has factor 3
+>>> 
+>>> 
+>>> 
+>>> for x in ['spam', 'eggs', 'ham']:
+...     print(x, end=' ')
+... 
+spam eggs ham >>> 
+>>> 
+>>> sum = 0
+>>> for x in [1, 2, 3, 4]:
+...     sum =sum + x
+... 
+>>> sum
+10
+>>> prod = 1
+>>> for i in [1, 2, 3, 4]: prod *= i
+... 
+>>> prod
+24
+>>> 
+>>> 
+>>> S = 'lumberjack'
+>>> T = ('and', "I'm", 'okay')
+>>> for i in S: print(i, end=' ')
+... 
+l u m b e r j a c k >>> 
+>>> for i in T: print(i, end=' ')
+... 
+and I'm okay >>> 
+>>> 
+>>> 
+>>> 
+>>> A = [(1, 2), (3, 4), (5, 6)]
+>>> for (a, b) in A:
+...     print(a, b)
+... 
+1 2
+3 4
+5 6
+>>> A = [(1, 2), (3, 4), (5, 6)]
+>>> for (d, f) in A:
+...     print(d, f)
+... 
+1 2
+3 4
+5 6
+>>> 
+>>> 
+>>> 
+>>> D = {'a': 1, 'b': 2, 'c': 3}
+>>> for key in D:
+...     print(key, '=>', D[key])
+... 
+c => 3
+a => 1
+b => 2
+>>> 
+>>> list(D.items())
+[('c', 3), ('a', 1), ('b', 2)]
+>>> 
+>>> for (key, value) in D.items():
+...     print(key, '=>', value)
+... 
+c => 3
+a => 1
+b => 2
+>>> 
+>>> 
+>>> A
+[(1, 2), (3, 4), (5, 6)]
+>>> for both in A:
+...     a, b = both
+...     print(a, b)
+... 
+1 2
+3 4
+5 6
+>>> 
+>>> 
+>>> 
+>>> ((a, b), c) = ((1, 2), 3)
+>>> a, b ,c
+(1, 2, 3)
+>>> 
+>>> for ((a, b), c) in [((1, 2), 3), ((4, 5), 6)]: print(a, b, c)
+... 
+1 2 3
+4 5 6
+>>> 
+>>> 
+>>> for ((a, b), c) in [([1, 2], 3), ['XY', 6]]: print(a, b, c)
+... 
+1 2 3
+X Y 6
+>>> 
+>>> 
+>>> 
+>>> a, *b, c = (1, 2, 3, 4)
+>>> a, b, c
+(1, [2, 3], 4)
+>>> 
+>>> for (a, *b, c) in [(1, 2, 3, 4), (5, 6, 7, 6, 5)]: print(a, b, c)
+... 
+1 [2, 3] 4
+5 [6, 7, 6] 5
+>>> 
+>>> 
+>>> 
+>>> items = ['aaa', 111, (4, 5), 2.02]
+>>> tests = [(4, 5), 3.14]
+>>> for key in tests:
+...     for item in items:
+...             if item == key:
+...                     print(key, 'was found')
+...                     break
+...     else:
+...             print(key, 'not found!')
+... 
+(4, 5) was found
+3.14 not found!
+>>> 
+>>> 
+>>> 
+>>> items = ['aaa', 111, (4, 5), 2.02]
+>>> tests = [(4, 5), 3.14]
+>>> 
+>>> for key in tests:
+...     if key in items:
+...             print(key, "was found")
+...     else:
+...             print(key, "not found!")
+... 
+(4, 5) was found
+3.14 not found!
+>>> 
+>>> 
+>>> 
+>>> seq1 = "spam"
+>>> seq2 = "scam"
+>>> res = []
+>>> for x in seq1:
+...     if x in seq2:
+...             res.append(x)
+... 
+>>> res
+['s', 'a', 'm']
+>>> 
+>>> 
+>>> 
+>>> for char in open('log.txt').read():
+...     print(char)
+... 
+s
+p
+a
+m
+
+
+1
+ 
+2
+ 
+3
+
+
+1
+ 
+2
+ 
+3
+ 
+4
+ 
+5
+ 
+6
+ 
+7
+ 
+8
+ 
+9
+ 
+1
+0
+
+
+s
+p
+a
+m
+ 
+9
+9
+ 
+[
+'
+e
+g
+g
+s
+'
+]
+
+
+>>> 
+>>> 
+
+==========================================================================
+
+Придется держать в уме: сканирование файлов
+Циклы удобно использовать там, где надо повторно выполнять некоторые
+действия или многократно обрабатывать данные. Файлы содержат мно-
+жество символов и строк, поэтому они могут рассматриваться как один
+из типичных объектов применения циклов. Чтобы загрузить содержимое
+файла в строку одной инструкцией, достаточно вызвать метод read:
+
+file = open(‘test.txt’, ‘r’) # Прочитать содержимое файла в строку
+print(file.read())
+
+Но для загрузки файла по частям обычно используется либо цикл while,
+завершающийся инструкцией break по достижении конца файла, либо
+цикл for. Чтобы выполнить посимвольное чтение, достаточно любого из
+следующих фрагментов:
+
+file = open(‘test.txt’)
+while True:
+	char = file.read(1) # Читать по одному символу
+	if not char: break
+	print(char)
+
+for char in open(‘test.txt’).read():
+	print(char)
+
+Тут цикл for выполняет обработку каждого отдельного символа, но за-
+грузка содержимого файла в  память производится однократно. Чтение
+строками или блоками циклом while реализуется следующим образом:
+
+file = open(‘test.txt’)
+while True:
+	line = file.readline() # Читать строку за строкой
+	if not line: break
+	print(line, end=’ ‘) # Прочитанная строка уже содержит символ \n
+
+file = open(‘test.txt’, ‘rb’)
+while True:
+	chunk = file.read(10) # Читать блоками по 10 байтов
+	if not chunk: break
+	print(chunk)
+
+Двоичные данные обычно читаются блоками определенного размера.
+Однако в случае текстовых данных построчное чтение с помощью цикла
+for выглядит проще и работает быстрее:
+
+for line in open(‘test.txt’).readlines():
+	print(line, end=’’)
+
+for line in open(‘test.txt’): # Использование итератора: лучший способ
+	print(line, end=’’)	# чтения текста
+
+Метод файлов readlines загружает файл целиком в список строк, тогда
+как при использовании итератора файла в каждой итерации загружа-
+ется только одна строка (итераторы подробно рассматриваются в  гла-
+ве 14). Подробности об использованных здесь функциях вы найдете в ру-
+ководстве по стандартной библиотеке языка Python.
+
+Последний пример представляет наиболее предпочтительный способ ра-
+боты с текстовыми файлами. Он не только проще, но и способен работать
+с  файлами любого размера, так как не загружает файл целиком в  па-
+мять. Версия на базе итератора может оказаться самой быстрой, но пока
+остается неясным вопрос, связанный с производительностью операций
+ввода-вывода в Python3.0.
+В коде, написанном для версии Python  2.X, можно встретить вызов
+функции file вместо open, а также устаревший метод файлов xreadlines,
+который позволяет добиться того же эффекта, что с итератором файлов
+(он действует так же, как метод readlines, но не загружает файл в  па-
+мять целиком). Функция file и метод xreadlines были ликвидированы
+в Python 3.0 вследствие их избыточности. Вам также не следует исполь-
+зовать их, если вы пользуетесь Python  2.6, но они все еще могут вам
+встретиться в старых программах. Подробнее об операциях чтения фай-
+лов рассказывается в главе 36, где вы узнаете, что работа с текстовыми
+и двоичными файлами в версии Python 3.0 имеет немного отличающий-
+ся смысл.
+
+============================================================================
+
+
+>>> 
+>>> list(range(5)), list(range(2, 5)), list(range(0, 10, 2))
+([0, 1, 2, 3, 4], [2, 3, 4], [0, 2, 4, 6, 8])
+>>> list(range(5)), list(range(2, 5)), list(range(0, 15, 3))
+([0, 1, 2, 3, 4], [2, 3, 4], [0, 3, 6, 9, 12])
+>>> 
+>>> 
+>>> list(range(-5, 5))
+[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]
+>>> 
+>>> list(range(5, -5, -1))
+[5, 4, 3, 2, 1, 0, -1, -2, -3, -4]
+>>> 
+>>> 
+>>> for i in range(3):
+...     print(i, 'Pythons')
+... 
+0 Pythons
+1 Pythons
+2 Pythons
+>>> 
+>>> 
+>>> X = 'spam'
+>>> for item in X: print(item, end=' ')
+... 
+s p a m >>> 
+>>> 
+>>> 
+>>> i = 0
+>>> while i < len(X):
+...     print(X[i], end=' ')
+...     i += 1
+... 
+s p a m >>> 
+>>> 
+>>> 
+>>> X
+'spam'
+>>> len(X)
+4
+>>> list(range(len(X)))
+[0, 1, 2, 3]
+>>> 
+>>> for i in range(len(X)): print(X[i], end=' ')
+... 
+s p a m >>> 
+>>> 
+>>> 
+>>> 
+>>> S = 'abcdefghijklmnop'
+>>> list(range(0, len(S), 2))
+[0, 2, 4, 6, 8, 10, 12, 14]
+>>> 
+>>> for i in range(0, len(S), 2): print(S[i], end='   ')
+... 
+a   c   e   g   i   k   m   o   >>>  
+>>> 
+>>> 
+>>> for i in range(0, len(S)): print(S[i], end='   ')
+... 
+a   b   c   d   e   f   g   h   i   j   k   l   m   n   o   p   >>> 
+>>> 
+>>> 
+>>> 
+>>> S
+'abcdefghijklmnop'
+>>> for i in S[::2]: print(i, end='  ')
+... 
+a  c  e  g  i  k  m  o  >>> 
+>>> 
+>>> for i in S[1]: print(i, end='  ')
+... 
+b  >>> for i in S[0:]: print(i, end='  ')
+... 
+a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  >>> 
+>>> 
+>>> 
+>>> L = [1, 2, 3, 4, 5]
+>>> for i in L:
+...     i += 1
+... 
+>>> L
+[1, 2, 3, 4, 5]
+>>> i
+6
+>>> 
+>>> 
+>>> L = [1, 2, 3, 4, 5, 6, 7, 8]
+>>> for i in range(len(L)):
+...     L[i] += 1
+... 
+>>> L
+[2, 3, 4, 5, 6, 7, 8, 9]
+>>> 
+>>> 
+>>> i = 0
+>>> while i < len(L):
+...     L[i] += 1
+...     i += 1
+... 
+>>> L
+[3, 4, 5, 6, 7, 8, 9, 10]
+>>> 
+>>> 
+>>> 
+>>> L1 = [1, 2, 3, 4]
+>>> L2 = [5, 6, 7, 8]
+>>> zip(L1, L2)
+<zip object at 0x7f437df8c388>
+>>> list(zip(L1, L2))
+[(1, 5), (2, 6), (3, 7), (4, 8)]
+>>> 
+>>> 
+>>> 
+>>> for (x, y) in zip(L1, L2):
+...     print(x, y, '--', x+y)
+... 
+1 5 -- 6
+2 6 -- 8
+3 7 -- 10
+4 8 -- 12
+>>> for (x, y) in zip(L1, L2):
+...     print(x, y, '-->', x+y)
+... 
+1 5 --> 6
+2 6 --> 8
+3 7 --> 10
+4 8 --> 12
+>>> 
+>>> 
+>>> 
+>>> t1, t2, t3 = (1, 2, 3), (4, 5, 6), (7, 8, 9)
+>>> t3
+(7, 8, 9)
+>>> list(zip(t1, t2, t3))
+[(1, 4, 7), (2, 5, 8), (3, 6, 9)]
+>>> 
+>>> 
+>>> S = 'abc'
+>>> S1 = 'abc'
+>>> S2 = 'xyz123'
+>>> list(zip(S1, S2))
+[('a', 'x'), ('b', 'y'), ('c', 'z')]
+>>> 
+>>> 
+>>> list(map(ord, 'spam'))
+[115, 112, 97, 109]
+>>> 
+>>> 
+>>> 
+>>> keys = ['spam', 'eggs', 'ham']
+>>> vals = [1, 5, 9]
+>>> list(zip(keys, vals))
+[('spam', 1), ('eggs', 5), ('ham', 9)]
+>>> 
+>>> D2 = {}
+>>> for (k, v) in zip(keys, vals): D2[k] = v
+... 
+>>> D2
+{'spam': 1, 'ham': 9, 'eggs': 5}
+>>> 
+>>> 
+>>> 
+>>> 
+>>> S = 'spam'
+>>> offset = 0
+>>> for i in S:
+...     print(i, 'appears at offset', offset)
+...     offset += 1
+... 
+s appears at offset 0
+p appears at offset 1
+a appears at offset 2
+m appears at offset 3
+>>> 
+>>> 
+>>> S = 'spam'
+>>> for (offset, i) in enumerate(S):
+...     print(i, 'appears at offset', offset)
+... 
+s appears at offset 0
+p appears at offset 1
+a appears at offset 2
+m appears at offset 3
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> E = enumerate(S)
+>>> E
+<enumerate object at 0x7f437dfa0fc0>
+>>> next(E)
+(0, 's')
+>>> next(E)
+(1, 'p')
+>>> next(E)
+(2, 'a')
+>>> next(E)
+(3, 'm')
+>>> 
+>>> 
+>>> [c * i for (i, c) in enumerate(S)]
+['', 'p', 'aa', 'mmm']
+>>> 
+
