@@ -1,0 +1,529 @@
+>>> T = ('cc', 'aa', 'dd', 'bb')
+>>> tmp = list(T)
+>>> tmp.sort()
+>>> tmp
+['aa', 'bb', 'cc', 'dd']
+>>> T = tuple(tmp)
+>>> T
+('aa', 'bb', 'cc', 'dd')
+>>> sorted(T)
+['aa', 'bb', 'cc', 'dd']
+>>> 
+>>> S = (1, 2, 3, 4, 5)
+>>> A = [x + 20 for x in S]
+>>> A
+[21, 22, 23, 24, 25]
+>>> 
+>>> S = (1, 2, 3, 2, 4, 2)
+>>> S.index(2)
+1
+>>> S.index(2, 2)
+3
+>>> S.count(2)
+3
+>>> 
+>>> S = (1, [2, 3], 4)
+>>> S[1] = 'spam'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'tuple' object does not support item assignment
+>>> S[1][0] = 'spam'
+>>> S
+(1, ['spam', 3], 4)
+>>> 
+>>> 
+>>> myfile = open('myfile.txt', 'w')
+>>> myfile.write('hello text file\n')
+16
+>>> myfile.write('goodbye text file\n')
+18
+>>> myfile.close()
+
+>>> myfile = open('myfile.txt')
+>>> myfile.readline()
+'hello text file\n'
+>>> myfile.readline()
+'goodbye text file\n'
+>>> myfile.readline()
+''
+>>> 
+>>> 
+>>> open('myfile'
+myfile
+>>> open('myfile'
+myfile
+>>> open('myfile.txt').read()
+'hello text file\ngoodbye text file\n'
+>>> print(open('myfile.txt').read())
+hello text file
+goodbye text file
+
+>>> for line in open('myfile'):
+...     print(line, end='')
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'myfile'
+>>> for line in open('myfile.txt'):
+...     print(line, end='')
+... 
+hello text file
+goodbye text file
+>>> 
+>>> 
+>>> 
+>>> X, Y, Z = 43, 44, 45
+>>> S = 'Spam'
+>>> D = {'a': 1, 'b': 2}
+>>> L = [1, 2, 3]
+>>> 
+>>> F = open('datafile.txt', 'w')
+>>> F.write(S + '\n')
+5
+>>> F.write('%s,%s,%s\n' % (X, Y, Z))
+9
+>>> F.
+>>> F.write(str(L) + '$' + str(D) + '\n')
+27
+>>> F.close()
+>>> 
+>>> chars = open('datafile.txt').read()
+>>> chars
+"Spam\n43,44,45\n[1, 2, 3]${'b': 2, 'a': 1}\n"
+>>> print(chars)
+Spam
+43,44,45
+[1, 2, 3]${'b': 2, 'a': 1}
+
+>>> F = open('datafile.txt')
+>>> line = F.readline()
+>>> line
+'Spam\n'
+>>> line.rstrip()
+'Spam'
+>>> line = F.readline()
+>>> line
+'43,44,45\n'
+>>> parts = line.split(',')
+>>> parts
+['43', '44', '45\n']
+>>> 
+>>> int(parts[1])
+44
+>>> numbers = [int(P) for P in parts]
+>>> numbers
+[43, 44, 45]
+>>> line = F.readline()
+>>> line
+"[1, 2, 3]${'b': 2, 'a': 1}\n"
+>>> parts = line.split('$')
+>>> parts
+['[1, 2, 3]', "{'b': 2, 'a': 1}\n"]
+>>> eval(parts[0])
+[1, 2, 3]
+>>> objects = [eval(P) for P in parts]
+>>> objects
+[[1, 2, 3], {'b': 2, 'a': 1}]
+>>> 
+>>> D = {'a': 1, 'b': 2}
+
+
+>>> F = open('datafile.pkl', 'wb')
+>>> import pickle
+>>> pickle.dump(D, F)
+>>> F.close()
+>>> F = open('datafile.pkl', 'rb')
+>>> E = pickle.load(F)
+>>> E
+{'b': 2, 'a': 1}
+>>> 
+>>> 
+>>> 
+>>> L = ['abc', [(1, 2), ([3], 4)], 5]
+>>> L[1]
+[(1, 2), ([3], 4)]
+>>> L[1][1]
+([3], 4)
+>>> L[1][1][0]
+[3]
+>>> L[1][1][0][0]
+3
+>>> 
+>>>
+>>> X = [1, 2, 3]
+>>> L = ['a', X, 'b']
+>>> D = {'x': X, 'y': 2}
+>>> X[1] = 'surprise'
+>>> L
+['a', [1, 'surprise', 3], 'b']
+>>> D
+{'y': 2, 'x': [1, 'surprise', 3]}
+>>> L = [1, 2, 3]
+>>> D = {'a': 1, 'b': 2}
+>>> A = L[:]
+>>> B = D.copy()
+>>> 
+>>> A[1] = 'Ni'
+>>> B['c'] = 'spam'
+>>> 
+>>> L, D
+([1, 2, 3], {'b': 2, 'a': 1})
+>>> A, B
+([1, 'Ni', 3], {'b': 2, 'c': 'spam', 'a': 1})
+>>> 
+>>> 
+>>> X = [1, 2, 3]
+>>> L = ['a', X[:], 'b']
+>>> D = {'x': X[:], 'y': 2}
+>>> 
+>>> 
+>>> L1 = [1, ('a', 3)]
+>>> L2 = [1, ('a', 3)]
+>>> L1 == L2 L1 is L2
+  File "<stdin>", line 1
+    L1 == L2 L1 is L2
+              ^
+SyntaxError: invalid syntax
+>>> L1 == L2, L1 is L2
+(True, False)
+>>> S1 = 'spam'
+>>> S2 = 'spam'
+>>> S1 == S2, S1 is S2
+(True, True)
+>>> S1 = 'a longer string'
+>>> S2 = 'a longer string'
+>>> S1 == S2, S1 is S2
+(True, False)
+>>> 
+>>> L1 = [1, ('a', 3)]
+>>> L2 = [1, ('a', 2)]
+>>> L1 < L2, L1 == L2, L1 > L2
+(False, False, True)
+>>> 
+>>> 
+>>> D1 = {'a': 1, 'b': 2}
+>>> D2 = {'a': 1, 'b': 3}
+>>> D1 == D2
+False
+>>> D1 < D2
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unorderable types: dict() < dict()
+>>> 
+>>> list(D1.items())
+[('b', 2), ('a', 1)]
+>>> sorted(D1.items())
+[('a', 1), ('b', 2)]
+>>> sorted(D1.items()) < sorted(D2.items())
+True
+>>> sorted(D1.items()) > sorted(D2.items())
+False
+>>> 
+>>> 
+>>> 
+>>> 
+>>> type([1]) == type([])
+True
+>>> type([1]) == list
+True
+>>> isinstance([1], list)
+True
+>>> import types
+>>> def f(): pass
+... 
+>>> type(f) == types.FunctionType
+True
+>>> 
+>>> L = [4, 5, 6]
+>>> X = L * 4
+>>> Y = [L] * 4
+>>> 
+>>> X
+[4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6]
+>>> Y
+[[4, 5, 6], [4, 5, 6], [4, 5, 6], [4, 5, 6]]
+>>> L[1] = 0
+>>> X
+[4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6]
+>>> Y
+[[4, 0, 6], [4, 0, 6], [4, 0, 6], [4, 0, 6]]
+>>> 
+>>> L = ['grail']
+>>> L.append(L)
+>>> L
+['grail', [...]]
+>>> 
+>>> T = (1, 2, 3)
+>>> T[2] = 4
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'tuple' object does not support item assignment
+>>> T = T[:2] + (4,)
+>>> T
+(1, 2, 4)
+>>> len(T)
+3
+>>> Z = (4, 5, 6)
+>>> Z = Z[:0] + (1,)
+>>> Z
+(1,)
+>>> Z = (4, 5, 6)
+>>> Z = Z[0:] + (1,)
+>>> Z
+(4, 5, 6, 1)
+>>> Z = (4, 5, 6)
+>>> Z = (1,) + Z[1:]
+>>> Z
+(1, 5, 6)
+>>> 
+>>> 
+>>> Practice #1
+>>> 
+>>> 2 ** 16
+65536
+>>> 
+>>> 2 / 5, 2 / 5.0
+(0.4, 0.4)
+>>> 
+>>> 'spam' + 'eggs'
+'spameggs'
+>>> S = 'ham
+  File "<stdin>", line 1
+    S = 'ham
+           ^
+SyntaxError: EOL while scanning string literal
+>>> S = 'ham'
+>>> 'eggs' + S
+'eggsham'
+>>> S * 5
+'hamhamhamhamham'
+>>> S[:0]
+''
+>>> 'green %s and %s' % ('eggs', S) 
+'green eggs and ham'
+>>> 
+>>> 'green {0} and {1}'.format('eggs', S)
+'green eggs and ham'
+>>> 
+>>> ('x',)[0]
+'x'
+>>> ('x', 'y')[1]
+'y'
+>>> 
+>>> L = [1, 2, 3] + [4, 5, 6]
+>>> L
+[1, 2, 3, 4, 5, 6]
+>>> L, L[:], L[:0], L[-2], L[-2:]
+([1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [], 5, [5, 6])
+>>> 
+>>> ([1, 2, 3] + [4, 5, 6])[2:4]
+[3, 4]
+>>> [L[2], L[3]]
+[3, 4]
+>>> L.reverse(); L
+[6, 5, 4, 3, 2, 1]
+>>> L.reverse()
+>>> L
+[1, 2, 3, 4, 5, 6]
+>>> L.reverse(); L
+[6, 5, 4, 3, 2, 1]
+>>> L.sort(); L
+[1, 2, 3, 4, 5, 6]
+>>> L.index(4)
+3
+>>> 
+>>> 
+>>> {'a': 1, 'b': 2}['b']
+2
+>>> 
+>>> D = {'x': 1, 'y': 2, 'z': 3}
+>>> D['w'] = 0
+>>> D['w'] = 0; D
+{'y': 2, 'w': 0, 'x': 1, 'z': 3}
+>>> D['x'] + D['w']; D
+1
+{'y': 2, 'w': 0, 'x': 1, 'z': 3}
+>>> D[(1, 2, 3)] = 4
+>>> D
+{'y': 2, 'w': 0, 'x': 1, 'z': 3, (1, 2, 3): 4}
+>>> list(D.keys()), list(D.values()), (1, 2, 3) in D
+(['y', 'w', 'x', 'z', (1, 2, 3)], [2, 0, 1, 3, 4], True)
+>>> 
+>>> 
+>>> [[]], ["",[],(),{},None]
+([[]], ['', [], (), {}, None])
+>>> 
+>>> 
+>>> Practice #2
+>>> 
+>>> 
+>>> 
+>>> L = [0, 1, 2, 3]
+>>> L[4]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> L[-1000:100]
+[0, 1, 2, 3]
+>>> L[3:1]
+[]
+>>> L[3:1] = ['asd']
+>>> L[3:1]
+[]
+>>> L[3:1] = [5]
+>>> L
+[0, 1, 2, 5, 'asd', 3]
+>>> 
+>>> 
+>>> Practice #3
+>>> 
+>>> 
+>>> L = [0, 1, 2, 3]
+>>> L[2] = []; L
+[0, 1, [], 3]
+>>> L[2:3] = []; L
+[0, 1, 3]
+>>> del L[0]; L
+[1, 3]
+>>> del L[1:]; L
+[1]
+>>> L[1:2] = 1
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only assign an iterable
+>>> 
+>>> 
+>>> Practice #4 - кортежи
+>>> 
+>>> 
+>>> X = 'spam'
+>>> Y = 'eggs'
+>>> X, Y = Y, X
+>>> X
+'eggs'
+>>> Y
+'spam'
+>>> X, Y = Y, X; X, Y
+('spam', 'eggs')
+>>> X, Y = Y, X; X
+'eggs'
+>>> 
+>>> 
+>>> Practice #5 - ключи словарей
+>>> 
+>>> 
+>>> D = {}
+>>> D[1] = 'a'
+>>> D[2] = 'b'
+>>> D
+{1: 'a', 2: 'b'}
+>>> 
+>>> D[(1, 2, 3)] = 'c'
+>>> D
+{1: 'a', 2: 'b', (1, 2, 3): 'c'}
+>>> 
+>>> 
+>>> Practice #6 - индексирование словарей
+>>> 
+>>> 
+>>> D = {'a': 11, 'b': 22, 'c': 33}
+>>> D{'d'}
+  File "<stdin>", line 1
+    D{'d'}
+     ^
+SyntaxError: invalid syntax
+>>> D
+{'b': 22, 'c': 33, 'a': 11, 'd': 'spam'}
+>>> 
+>>> 
+>>> Practice #7 - индексирование словарей
+>>> 
+>>> 
+>>> 'x' + 1
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: Can't convert 'int' object to str implicitly
+>>> 
+>>> {} + {}
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unsupported operand type(s) for +: 'dict' and 'dict'
+>>> 
+>>> [].append(9)
+>>> "".append('s')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'str' object has no attribute 'append'
+>>> 
+>>> list({}.keys())
+[]
+>>> list({'a': 2, 'b': 3, 'c': 4}.keys())
+['b', 'c', 'a']
+>>> [].keys()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'list' object has no attribute 'keys'
+>>> [][:]
+[]
+>>> ""[:]
+''
+>>> 
+>>> 
+>>> Practice #8 - индексирование строк
+>>> 
+>>> 
+>>> S = 'spam'
+>>> S[0][0][0][0][0]
+'s'
+>>> S = ['s', 'p', 'a', 'm']
+>>> S[0][0][0][0][0]
+'s'
+>>> 
+>>> 
+>>> Practice #9 - неизменяемые типы
+>>> 
+>>> 
+>>> S = 'spam'
+>>> S = S[0] + 'l' + S[2:]
+>>> S = S[0] + 'l' + S[2:]; S
+'slam'
+>>> S = S[0] + 'l' + S[2] + S[3]; S
+'slam'
+>>> S = 'spam'
+>>> S
+'spam'
+>>> S = S[0] + 'l' + S[2] + S[3]; S
+'slam'
+>>> 
+>>> 
+>>> Practice #10 - вложенные структуры
+>>> 
+>>> 
+>>> me = {'name': ('Sanzh', 'Urazaliyev'), 'age': '28', 'job': 'engineer'}
+>>> me['job']
+'engineer'
+>>> me['name'][1]
+'Urazaliyev'
+>>> 
+>>> 
+>>> Practice #11 - файлы
+>>> 
+>>>
+>>> my = open('myf.txt')
+>>> my.readline()
+'Hello file world!\n'
+>>> my.readline()
+'Hello fucking world!\n'
+>>> my.readline()
+'And goodbye fucking worlds!\n'
+>>> 
+>>> open('myf.txt').read()
+'Hello file world!\nHello fucking world!\nAnd goodbye fucking worlds!\n'
+>>> print(open('myf.txt').read())
+Hello file world!
+Hello fucking world!
+And goodbye fucking worlds!
+>>> 
+>>> 
+
+
