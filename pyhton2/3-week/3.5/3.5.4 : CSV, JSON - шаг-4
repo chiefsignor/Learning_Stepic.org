@@ -1,0 +1,197 @@
+Задание:
+Вам дано описание наследования классов в формате JSON. 
+Описание представляет из себя массив JSON-объектов, которые соответствуют классам. У каждого JSON-объекта есть поле name, которое содержит имя класса,
+ и поле parents, которое содержит список имен прямых предков.
+
+Пример:
+[{"name": "A", "parents": []}, {"name": "B", "parents": ["A", "C"]}, {"name": "C", "parents": ["A"]}]
+
+﻿Эквивалент на Python:
+
+class A:
+    pass
+
+class B(A, C):
+    pass
+
+class C(A):
+    pass
+
+Гарантируется, что никакой класс не наследуется от себя явно или косвенно, и что никакой класс не наследуется явно от одного класса более одного раза.
+
+Для каждого класса вычислите предком скольких классов он является и выведите эту информацию в следующем формате.
+
+<имя класса> : <количество потомков>
+
+Выводить классы следует в лексикографическом порядке.
+
+Решение№1:
+import json
+
+# тестовую строку заменить на input() в рабочей версии
+input = input()
+
+data = json.loads(input)
+classes = dict()        
+offsprings = dict()     
+checked = dict()        
+
+
+def checking(name, elem):                       
+    for parent in classes[name]:                
+        if elem not in checked[parent]:         
+            checked[parent].append(elem)        
+            offsprings[parent] += 1             
+            checking(parent, elem)              
+
+for element in data:                            
+    classes[element["name"]] = element["parents"]
+    offsprings[element["name"]] = 1
+    checked[element["name"]] = [element["name"]]
+
+for name in classes:                            
+    checking(name, name)
+
+keys = []
+for key in classes.keys():
+    keys.append(key)
+
+keys.sort()
+for key in keys:
+    print(str(key) + " : " + str(offsprings[key]))
+
+Решение№2:
+import json
+
+def test(x, c):
+    for i in z:
+        if x in i['parents']:
+            c.add(i['name'])
+            c = test(i['name'], c)
+    return (c)
+
+z = json.loads(input())
+z.sort(key=(lambda x: x['name']))
+for i in z:
+    print(i['name'], ':', len(test(i['name'], c = set()))+ 1)
+
+Решение№3:
+import json
+
+data = json.loads(input())
+children = dict()
+
+for cls in data:
+    for par in cls["parents"]:
+        if par not in children:
+            children[par] = []
+        children[par].append(cls["name"])
+
+def dfs(v, used):
+    size = 1
+    used.add(v)
+    if v not in children:
+        return size
+
+    for child in children[v]:
+        if child not in used:
+            size += dfs(child, used)
+
+    return size
+
+ans = []
+
+for cls in data:
+    ans.append((cls["name"], dfs(cls["name"], set())))
+
+for i in sorted(ans):
+    print(i[0], ":", i[1])
+
+Решение№4:
+import json
+data = json.loads(input(''))
+def find(a):
+    for j in data:
+        if a['name'] in j['parents']:
+            ans[i['name']].add(j['name'])
+            find(j)
+    
+ans = {}
+for i in data:
+    ans[i['name']] = {1}# i- словарь из списка data
+    find(i)
+for i in sorted(ans):
+    print(i, ':', len(ans[i]))
+
+Решение№5:
+import json
+
+def count_children(cls):
+    res = [cls]
+    for d in classes:
+        if cls in d['parents']:
+            res.extend(count_children(d['name']))
+    return list(set(res))
+
+classes = json.loads(input())
+
+for cls in sorted([x['name'] for x in classes]):
+    print(cls, len(count_children(cls)), sep=' : ')
+
+Решение№6:
+import json
+
+d = dict() #словарь для хранения имен классов(ключ) и всех потомков(значение)
+data_json = json.loads(input())  #обработка входных данных
+data_json.sort(key= lambda x: x['name'])   #сортировка по имени
+for q in data_json :  #идем по всем значениям 'name'
+    d[q['name']] = []  #создание элементов словаря
+    for i in data_json:  #проходим по всем значениям 'parents' полученных после обработки входных данных
+        if q['name'] in i['parents']:   
+            d[q['name']].append(i['name'])   #если имя класса есть в родителях  , то добавляем имя класса в значение словаря 
+            cnt = 0 #итератор по уже добавленным элементам значения в словаре
+            while cnt < len(d[q['name']]) :  #выполняем цикл, пока итератор меньше длины списка потомков (типа начало рекурсии =) )
+                for c in data_json:  
+                    if d[q['name']][cnt] in c['parents'] :  #ну здесь то уж , я думаю, что всё понятно
+                        d[q['name']].append(c['name'])
+                cnt += 1
+for c in d:
+    d[c] = set(d[c]) #убираем повторяющихся потомков
+    print(c, ':', len(d[c]) + 1)
+
+Решение№7:
+import json
+d = json.loads(input())
+d={i['name']:i['parents'] for i in d}
+def f(c):
+    n = [c]
+    for i in d:
+        if c in d[i]:
+            n+=[i]
+            n+=f(i)
+    return n
+k=list(d)
+k.sort()
+[print(i,':', len(set(f(i)))) for i in k]
+
+Решение№8:
+import json
+js = json.loads(input())
+parents = {a['name']: a['parents'] for a in js}
+def is_parent(child, parent):
+    return child == parent or any(map(lambda p: is_parent(p, parent), parents[child]))
+li = sorted([a['name'] for a in js])
+for name in li:
+    print(str(name) +' : ' + str(sum([is_parent(x, name) for x in li])))
+
+Решение№9:
+import json
+
+d = {}
+d_out = {}
+
+data = json.loads(input())
+
+for el in data:
+    d[el["name"]] = el["parents"]
+    d_out[el["name"]] = set()
