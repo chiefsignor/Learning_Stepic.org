@@ -1,0 +1,97 @@
+Задание:
+Вам дана частичная выборка из датасета зафиксированных преступлений, совершенных в городе Чикаго с 2001 года по настоящее время.
+
+Одним из атрибутов преступления является его тип – Primary Type.
+
+Вам необходимо узнать тип преступления, которое было зафиксировано максимальное число раз в 2015 году.
+
+Файл с данными:
+Crimes.csv
+
+Ответ: THEFT
+
+Решение№1:
+from collections import Counter as c
+
+with open('Crimes.csv') as f:
+ data = csv.reader(f)
+ print(c( row[5] for row in data if '2015' in row[2] ))
+
+Решение№2:
+import csv
+
+with open("Crimes.csv") as fi:
+    reader = csv.reader(fi)
+    next(reader)
+    crime_cnt = dict()
+    for row in reader:
+        year = row[2][6:10]
+        if year == "2015":
+            crime_type = row[5]
+            if crime_type not in crime_cnt:
+                crime_cnt[crime_type] = 0
+            crime_cnt[crime_type] += 1
+
+a = list(map(lambda x: (crime_cnt[x], x), crime_cnt))
+a.sort(key=lambda x: -x[0])
+
+print(a[0][1])
+
+Решение№3:
+import csv
+
+total = {}
+with open('D:/Stepik/Crimes.csv') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        if row[2][6:10] in '2015':
+            if row[5] not in total:
+                total[row[5]] = 1
+            else:
+                total[row[5]] += 1
+
+print(sorted(total.items(), key=lambda x: x[1]))
+
+Решение№4:
+import csv
+content = []
+crime = {}
+max_crime = 0
+item = ''
+with open('crimes.csv','r') as f:
+  text = csv.reader(f)
+  for i in text:
+    if '2015' in i[2]:
+      if i[5] in crime.keys():
+        crime[i[5]] += 1
+      else:
+        crime[i[5]] = 1
+    if crime[i[5]]
+    if crime[i[5]] > max_crime:
+      max_crime = crime[i[5]]
+      item = i[5]
+print(item,max_crime) 
+
+Решение№5:
+import csv
+
+with open("C:\\Users\\Nikita\\Downloads\\Crimes.csv") as f:
+    a = [row[5] for row in csv.reader(f) if "2015" in row[2]]
+    cnt, crime = 0, ''
+    for x in set(a):
+        if a.count(x) > cnt:
+            cnt = a.count(x)
+            crime = x
+    print(crime)
+
+Решение№6:
+import csv
+from collections import Counter
+
+with open("Crimes.csv", "r") as f:
+    reader = csv.DictReader(f)
+    crimes = []
+    for row in reader:
+        crimes.append(row['Primary Type'])
+    c = Counter(crimes).most_common(1)
+print(c[0][0])
