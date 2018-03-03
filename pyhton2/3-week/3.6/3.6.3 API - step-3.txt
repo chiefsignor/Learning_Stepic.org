@@ -1,0 +1,103 @@
+Задание:
+В этой задаче вам необходимо воспользоваться API сайта numbersapi.com
+
+Вам дается набор чисел. Для каждого из чисел необходимо узнать, существует ли интересный математический факт об этом числе.
+
+Для каждого числа выведите Interesting, если для числа существует интересный факт, и Boring иначе.
+Выводите информацию об интересности чисел в таком же порядке, в каком следуют числа во входном файле.
+
+Пример запроса к интересному числу:
+http://numbersapi.com/31/math?json=true
+
+Пример запроса к скучному числу:
+http://numbersapi.com/999/math?json=true
+
+Пример входного файла:
+31
+999
+1024
+502
+
+﻿Пример выходного файла:
+Interesting
+Boring
+Interesting
+Boring
+Ответ:
+
+Решение№1:
+import requests as re
+
+
+with open('dataset_24476_3.txt') as file:
+    for num in file:
+        response = re.get('http://numbersapi.com/{number}/math?json=true'.format( number=num.rstrip() )).json()﻿
+        ﻿
+        print('Interesting') if response['found'] else print('Boring')﻿
+
+Решение№2:
+import requests
+import json
+
+def is_interesting(x):
+    url = "http://numbersapi.com/"; + str(x) + "/math?json=true"
+    resp = requests.get(url).text
+    js = json.loads(resp)
+    return js["found"]
+
+with open("input.txt") as fi:
+    for line in fi:
+        print("Interesting" if is_interesting(line.rstrip()) else "Boring")
+
+Решение№3:
+import requests
+with open("input.txt") as f:
+    for i in f:
+        api_url = "http://numbersapi.com/{}/math".format(int(i))
+        params = {"json" : True }
+        res = requests.get(api_url,params)
+        data = res.json()
+        if data["found"]:
+            print("Interesting")
+        else:
+            print("Boring")
+
+Решение№4:
+import requests
+
+with open("dataset_24476_3.txt") as inf:
+    for line in inf:
+        res = requests.get("http://numbersapi.com/"; + line.strip() + "/math?default=Boring")
+        with open("dataset.txt", "a") as ouf:      
+            if res.text == 'Boring':
+                ouf.write('Boring\n')
+            else:
+                ouf.write('Interesting\n')
+
+Решение№5:
+import requests
+
+with open("dataset_24476_3.txt", "r") as rf:
+    for line in rf:
+        print("Interesting" if requests.get("http://numbersapi.com/{}/math?json=true".format(line.strip())).json()["found"] else "Boring")
+
+Решение№6:
+import requests
+
+with open('dataset_24476_3.txt', 'r') as f:
+    for line in f:
+        NewLine = line.strip()
+       
+        api_url = f'http://numbersapi.com/{NewLine}/math'
+
+        params = {
+            'json': 'true'
+        }
+        
+        res = requests.get(api_url, params=params)
+        
+        if res.json()['found']:
+            print('Interesting')
+        else:
+            print('Boring')
+

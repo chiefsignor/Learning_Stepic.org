@@ -1,0 +1,175 @@
+Задание:
+В этой задаче вам необходимо воспользоваться API сайта artsy.net
+
+API проекта Artsy предоставляет информацию о некоторых деятелях искусства, их работах, выставках.
+
+В рамках данной задачи вам понадобятся сведения о деятелях искусства (назовем их, условно, художники).
+
+Вам даны идентификаторы художников в базе Artsy.
+Для каждого идентификатора получите информацию о имени художника и годе рождения.
+Выведите имена художников в порядке неубывания года рождения. В случае если у художников одинаковый год рождения, выведите их имена в лексикографическом порядке.
+
+Работа с API Artsy
+
+Полностью открытое и свободное API предоставляют совсем немногие проекты. В большинстве случаев, для получения доступа к API необходимо зарегистрироваться в проекте, создать свое приложение, и получить уникальный ключ (или токен), и в дальнейшем все запросы к API осуществляются при помощи этого ключа.
+
+Чтобы начать работу с API проекта Artsy, вам необходимо пройти на стартовую страницу документации к API https://developers.artsy.net/start и выполнить необходимые шаги, а именно зарегистрироваться, создать приложение, и получить пару идентификаторов Client Id и Client Secret. Не публикуйте эти идентификаторы.
+
+После этого необходимо получить токен доступа к API. На стартовой странице документации есть примеры того, как можно выполнить запрос и как выглядит ответ сервера. Мы приведем пример запроса на Python.
+
+import requests
+import json
+
+client_id = '...'
+client_secret = '...'
+
+# инициируем запрос на получение токена
+r = requests.post("https://api.artsy.net/api/tokens/xapp_token",
+                  data={
+                      "client_id": client_id,
+                      "client_secret": client_secret
+                  })
+
+# разбираем ответ сервера
+j = json.loads(r.text)
+
+# достаем токен
+token = j["token"]
+
+ 
+
+Теперь все готово для получения информации о художниках. На стартовой странице документации есть пример того, как осуществляется запрос и как выглядит ответ сервера. Пример запроса на Python.
+
+# создаем заголовок, содержащий наш токен
+headers = {"X-Xapp-Token" : token}
+
+
+# инициируем запрос с заголовком
+r = requests.get("https://api.artsy.net/api/artists/4d8b92b34eb68a1b2c0003f4", headers=headers)
+
+# разбираем ответ сервера
+j = json.loads(r.text)
+
+
+Решение№1:
+res = []
+with open('dataset_24476_4.txt', 'r') as f, open('result.txt', 'w', encoding='utf-8') as w:
+    for i in f:
+        req_str = 'https://api.artsy.net/api/artists/' + i.rstrip()
+        j = requests.get(req_str, headers=headers).json()
+        res.append(j['birthday']+j['sortable_name'])
+    for i in sorted(res):
+        w.write(i[4:]+'\n')﻿
+
+Решение№2:
+import requests
+import json
+
+# put your id and secret here
+client_id = '...'
+client_secret = '...'
+
+resp = requests.post("https://api.artsy.net/api/tokens/xapp_token";, data={"client_id" : client_id, "client_secret" : client_secret}).text
+token = json.loads(resp)["token"]
+
+def get_json(url):
+    headers = {"X-Xapp-Token" : token}
+    resp = requests.get(url, headers=headers).text
+    return json.loads(resp)
+
+ans = []
+
+with open("input.txt") as inp:
+    for id in inp:
+        id = id.rstrip()
+        js = get_json("https://api.artsy.net/api/artists/"; + id)
+        ans.append((js["birthday"], js["sortable_name"]))
+
+ans.sort(key=lambda x: (int(x[0]), x[1]))
+﻿
+print("\n".join(map(lambda x: x[1], ans)))
+
+ 
+Решение№3:
+import requests
+import json
+
+r = requests.post("https://api.artsy.net/api/tokens/xapp_token",
+                  data={
+                      "client_id": "...",
+                      "client_secret": "..."
+                  })
+headers = {"X-Xapp-Token": json.loads(r.text)["token"]}
+db = []
+with open("sample.txt") as f:
+    for a in f:
+        r = json.loads(requests.get("https://api.artsy.net/api/artists/{}".format(a.strip()), headers=headers).content.decode())
+        db.append((r["birthday"], r["sortable_name"]))
+print(*(d[1] for d in sorted(db)), sep="\n")
+
+Решение№4:
+art_dict = dict()
+api_url_template = 'https://api.artsy.net/api/artists/{}'
+with open('dataset_24476_4.txt') as inpf, open('out3_6_4.txt', 'w', encoding='utf-8') as outf:
+    for num in inpf:
+        num = num.rstrip()
+        api_url = api_url_template.format(num)
+
+        res = requests.get(api_url, headers=headers)
+        data = json.loads(res.text)
+        art_dict[data['sortable_name']] = int(data['birthday'])
+
+    srt = sorted(art_dict.items(), key=lambda x: (x[1], x[0]))
+    for art in srt:
+        outf.write(str(art[0]) + '\n')
+
+Решение№5:
+import requests
+import sys
+from operator import itemgetter
+
+client_id = '176dfff34bdc8c9e35d9'
+client_secret = '10788dcaded7706b90301a920dbcce4d'
+url_api = 'https://api.artsy.net/api'
+url_token = 'https://api.artsy.net/api/tokens/xapp_token'
+url_artists = 'https://api.artsy.net/api/artists/'
+
+sys.stdin = open('input.txt', 'r')
+
+req_token = requests.post(url_token,
+                          data={
+                               'client_id': client_id,
+                               'client_secret': client_secret
+                               })
+
+json_token = req_token.json()
+token = json_token['token']
+
+headers = {'X-Xapp-Token': token}
+
+artists = []
+for artist_id in sys.stdin:
+    artist_id = artist_id.rstrip()
+    req_get = requests.get(url_artists + artist_id, headers=headers)
+    req_get.encoding = 'utf-8'
+    resp_data = req_get.json()
+    artists.append({'name': resp_data['sortable_name'],
+                    'birthday': resp_data['birthday']})
+
+artists = sorted(artists, key=itemgetter('birthday', 'name'))
+for artist in artists:
+    print(artist['name'])﻿
+
+Решение№6:
+result = []
+with open("dataset_24476_4.txt") as f:
+    for line in f:
+        api_url = "https://api.artsy.net/api/artists/{id_name}".format(id_name=line.strip())
+        res = requests.get(api_url, headers=headers)
+        j = json.loads(res.text)
+        d = dict(birthday=int(j["birthday"]), sortable_name=j["sortable_name"])
+        result.append(d)
+result_sorted = sorted(result, key=lambda x: (x['birthday'], x['sortable_name']))
+
+for items in result_sorted:
+    print(items["sortable_name"])
