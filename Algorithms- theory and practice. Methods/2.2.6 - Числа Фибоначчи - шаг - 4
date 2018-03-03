@@ -1,0 +1,82 @@
+Алгоритмы: теория и практика. Методы
+
+Задание:
+Дано целое число 1≤n≤40, необходимо вычислить n-е число Фибоначчи (напомним, что F0=0, F1=1 и Fn=Fn−1+Fn−2 при n≥2).
+
+Решение №1:
+print(round(0.4472135954999579*1.618033988749895**int(input())))
+
+Решение №2:
+def fib(num):
+
+    prev, cur = 0, 1
+
+    for i in range(1, num):
+        prev, cur = cur, prev + cur
+
+    return cur
+
+
+def main():
+    n = int(input())
+    print(fib(n))
+
+if __name__ == "__main__":
+    main()
+
+Решение №3:
+import functools
+
+@functools.lru_cache(maxsize=None)
+def fib(n):
+    if n < 2: return n 
+    else: return fib(n-1) + fib(n-2)
+
+def main():
+    n = int(input())
+    print(fib(n))
+
+
+if __name__ == "__main__":
+    main()
+    
+Решение №4:
+a, b, n = 0, 1, int(input())
+for i in range(2, n+1):
+    a, b = b, a + b
+print(b)
+
+Решение №5:
+def fib(n):
+    nums = [0, 1]
+
+    if n in nums:
+    	return nums[n]
+
+    for _ in range(n - 1):
+    	nums[0], nums[1] = nums[1], nums[0] + nums[1]
+
+    return nums[1]
+
+def main():
+    n = int(input())
+    print(fib(n))
+
+
+if __name__ == "__main__":
+    main()
+
+Решение №6:
+def fib(n):
+    lst = [i for i in range(n+1)]
+    for i in range(2, n+1):
+        lst[i] = lst[i - 1] + lst[i - 2]
+    return lst[n]
+
+def main():
+    n = int(input())
+    print(fib(n))
+
+
+if __name__ == "__main__":
+    main()
