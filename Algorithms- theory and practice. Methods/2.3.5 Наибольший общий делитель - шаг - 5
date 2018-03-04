@@ -1,0 +1,80 @@
+Задание:
+По данным двум числам 1≤a,b≤2⋅109 найдите их наибольший общий делитель.
+
+Решение №1:
+def gcd(a, b):
+    if b == 0:
+        return a
+    else:
+        return gcd(b, a % b)
+
+
+def main():
+    a, b = map(int, input().split())
+    print(gcd(a, b))
+
+
+if __name__ == "__main__":
+    main()
+    
+Решение №2:
+def gcd(a, b):
+    while a!=0 and b!=0:
+        if a>=b:
+            a = a%b
+        elif b>=a:
+            b = b%a
+    if a==0:
+        s = b
+    elif b==0:
+        s = a
+    return s
+def main():
+    a, b = map(int, input().split())
+    print(gcd(a, b))
+main()
+
+Решение №3:
+a, b = map(int, input().split())
+try:
+    while True:
+        a %= b
+        b %= a
+except ZeroDivisionError:
+    print(max(a, b))
+    
+Решение №4:
+def gcd(num1, num2):
+    if 0 in (num1, num2):
+        return num1 or num2
+
+    if num1 >= num2:
+        return gcd(num1 % num2, num2)
+    else:
+        return gcd(num2 % num1, num1)
+
+
+num1, num2 = [int(i) for i in input().split()]
+
+print(gcd(num1, num2))
+
+Решение №5:
+def gcd_iterative(a, b):
+    while a:
+        a, b = b % a, a
+    return b
+
+
+def main():
+    a, b = (int(i) for i in input().split())
+    print(gcd_iterative(a, b))
+
+
+if __name__ == '__main__':
+    main()
+    
+Решение №6:
+a, b = map(int, input().split())
+while b:     # while b != 0
+    a, b = b, a % b
+print(a)
