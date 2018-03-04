@@ -1,0 +1,105 @@
+Задание:
+Вам дано описание пирамиды из кубиков в формате XML.
+Кубики могут быть трех цветов: красный (red), зеленый (green) и синий (blue﻿).
+Для каждого кубика известны его цвет, и известны кубики, расположенные прямо под ним.
+
+Пример:
+
+<cube color="blue">
+  <cube color="red">
+    <cube color="green">
+    </cube>
+  </cube>
+  <cube color="red">
+  </cube>
+</cube>
+ 
+Введем понятие ценности для кубиков. Самый верхний кубик, соответствующий корню XML документа имеет ценность 1. Кубики, расположенные прямо под ним, имеют ценность 2. Кубики, расположенные прямо под нижележащими кубиками, имеют ценность 3. И т. д.
+
+Ценность цвета равна сумме ценностей всех кубиков этого цвета.
+
+Выведите через пробел три числа: ценности красного, зеленого и синего цветов.
+
+
+
+Решение№1:
+
+from xml.etree import ElementTree
+
+values = { 'red': 0, 'green': 0, 'blue': 0 }
+
+def addValue(element, value):
+	values[element.get('color')] += value
+	for child in element:
+		addValue(child, value + 1)
+
+root = ElementTree.fromstring(input())
+addValue(root, 1)
+print(str(values['red']) + ' ' + str(values['green']) + ' ' + str(values['blue']))
+
+Решение№2:
+from xml.etree import ElementTree
+
+
+tree = ElementTree.fromstring(input())
+result = {'red':0, 'blue':0, 'green':0}
+
+
+def rec_walk(element, counter):
+    result[element.attrib["color"]] += counter
+    for child in element:
+        rec_walk(child, counter+1)
+
+rec_walk(tree, 1)
+print(result["red"], result["green"], result["blue"]) 
+
+Решение№3:
+from xml.etree import ElementTree
+colors = {"red": 0, "green": 0, "blue": 0}  # словарь ключ=цвет
+def finder(root, count=1):
+    colors[root.attrib["color"]] += count  # нашли цвет добавили к счётчику
+    [finder(child, count + 1) for child in root]  # поиск во вложениях        
+finder(ElementTree.fromstring(input()))  # считываем xml-строку
+print(colors["red"], colors["green"], colors["blue"])  # выдаём ответ
+
+Решение№4:
+import xml.etree.ElementTree as xml
+from collections import defaultdict as dd
+cost, root = dd(lambda: 0), xml.fromstring(input())
+stack = [(root, 1)]
+while stack:
+    lr = stack.pop()
+    cost[lr[0].attrib["color"]] += lr[1]
+    stack.extend((succ, lr[1] + 1) for succ in lr[0])
+print(cost["red"], cost["green"], cost["blue"])
+
+Решение№5:
+from xml.etree import ElementTree
+def CountValue(elem, value=1):
+    c[elem.attrib['color']] += value
+    [CountValue(child, value + 1) for child in elem]        
+c = {'red': 0, 'green': 0, 'blue': 0}
+CountValue(ElementTree.fromstring(input()))
+print(*[c[i] for i in c])
+
+Решение№6:
+from xml.etree import ElementTree
+
+root = ElementTree.fromstring(input())
+
+price = {
+    'red': 0,
+    'green': 0,
+    'blue': 0
+}
+
+
+def func(elem, lvl):
+    for child in elem:
+        price[child.attrib['color']] += lvl
+        func(child, lvl + 1)
+
+
+price[root.attrib['color']] = 1
+func(root.getchildren(), 2)
+print(' '.join([str(price[k]) for k in price]))
